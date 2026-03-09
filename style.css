@@ -405,18 +405,6 @@ section { padding:100px 0; }
 /* ══════════════════════════════════
    PRODUCT CARDS
 ══════════════════════════════════ */
-
-.services-home-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-@media (max-width: 600px) {
-  .services-home-grid {
-    grid-template-columns: 1fr;
-  }
-}
 .product-filters {
   display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
   margin-bottom:48px;

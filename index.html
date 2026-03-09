@@ -7,7 +7,7 @@
   <meta name="description" content="Mamosana Wellness Boutique – your trusted holistic wellness centre in Tembisa offering herbs, natural remedies and alternative medicines.">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="style.css">
 
   <!-- ═══════════════════════════════════════════════════════
        MAMOSANA — SMOOTH ANIMATION LAYER
@@ -524,7 +524,7 @@
         <div class="hero-botanical-inner">
           <div class="hero-orb">
             <div class="hero-orb-inner">
-              <img src="logo_icons.png" alt="Mamosa Logo" class="hero-logo">
+              <img src="logo icons.png" alt="Mamosa Logo" class="hero-logo">
             </div>
           </div>
         </div>
@@ -709,7 +709,7 @@
   <div class="footer-grid">
     <div class="reveal">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-        <img src="logo_icons.png" alt="Mamosana" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85">
+        <img src="logo icons.png" alt="Mamosana" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85">
         <div class="footer-logo-text"><h1>MAMOSANA</h1><small>Wellness Boutique</small></div>
       </div>
       <p class="footer-brand-desc">Your trusted holistic wellness centre in Tembisa. Bringing nature's healing power to your doorstep with premium herbs and natural alternative medicines.</p>
@@ -912,83 +912,5 @@
 })();
 </script>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     MAMOSANA — MOBILE NAV FIX  v3
-     Paste this entire block into EVERY HTML page, just before </body>,
-     AFTER <script src="main.js"></script>.
-     ═══════════════════════════════════════════════════════════════════════ -->
-
-<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-
-<script>
-(function () {
-  'use strict';
-
-  var nav     = document.getElementById('mobileNav');
-  var overlay = document.getElementById('mobileNavOverlay');
-
-  function openNav() {
-    if (!nav) return;
-    nav.classList.add('open');
-    if (overlay) overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeNav() {
-    if (!nav) return;
-    nav.classList.remove('open');
-    if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  /* ── Completely replace toggleMobileNav — stop any other version running ── */
-  window.toggleMobileNav = function (e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    nav && nav.classList.contains('open') ? closeNav() : openNav();
-  };
-
-  /* ── Wire the hamburger button directly, independent of onclick="" ────── */
-  document.addEventListener('DOMContentLoaded', function () {
-
-    /* Hamburger */
-    var burger = document.querySelector('.hamburger');
-    if (burger) {
-      /* Remove any existing onclick so it can't fire openCart accidentally */
-      burger.removeAttribute('onclick');
-      burger.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        nav && nav.classList.contains('open') ? closeNav() : openNav();
-      });
-    }
-
-    /* Mobile close button */
-    var closeBtn = document.querySelector('.mobile-close');
-    if (closeBtn) {
-      closeBtn.removeAttribute('onclick');
-      closeBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        closeNav();
-      });
-    }
-
-    /* Nav links */
-    if (nav) {
-      nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', closeNav);
-      });
-    }
-  });
-
-  /* ── Overlay tap ────────────────────────────────────────────────────────── */
-  if (overlay) overlay.addEventListener('click', closeNav);
-
-  /* ── Escape key ─────────────────────────────────────────────────────────── */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeNav();
-  });
-
-})();
-</script></body>
+</body>
 </html>
