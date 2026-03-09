@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Mamosana Wellness Boutique</title>
+  <meta name="description" content="Get in touch with Mamosana Wellness Boutique at 112 Ulundi St, Thembisa. Email, WhatsApp or fill in our contact form.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ── ORIGINAL CONTACT STYLES ─────────────────────── -->
+  <style>
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .contact-cards { display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+    .wa-cta {
+      display:flex; align-items:center; gap:16px;
+      background:linear-gradient(135deg,#25D366,#1db954);
+      border-radius:14px; padding:22px 24px; color:white;
+      text-decoration:none; margin-bottom:28px;
+    }
+    .wa-cta i { font-size:2.2rem; }
+    .wa-cta h4 { font-size:1rem; font-weight:700; margin-bottom:3px; }
+    .wa-cta p  { font-size:0.82rem; opacity:0.9; font-weight:300; }
+    .hours-table { width:100%; border-collapse:collapse; }
+    .hours-table tr { border-bottom:1px solid var(--border); }
+    .hours-table tr:last-child { border-bottom:none; }
+    .hours-table td { padding:10px 0; font-size:0.84rem; }
+    .hours-table td:first-child { color:var(--text); font-weight:500; }
+    .hours-table td:last-child  { color:var(--green); font-weight:600; text-align:right; }
+    .hours-table .closed { color:var(--text-light) !important; font-weight:300 !important; }
+    .map-container { border-radius:16px; overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border); }
+    @media(max-width:1024px){ .contact-grid { grid-template-columns:1fr; } }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAMOSANA CONTACT — SMOOTH ANIMATION LAYER
+  ═══════════════════════════════════════════════════════ -->
+  <style>
+
+    /* ─── 1. REDUCED-MOTION RESPECT ──────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    }
+
+    /* ─── 2. PAGE FADE IN ────────────────────────────────── */
+    body { animation:pageFadeIn 0.55s ease both; }
+    @keyframes pageFadeIn { from { opacity:0; } to { opacity:1; } }
+
+    /* ─── 3. PRELOADER ───────────────────────────────────── */
+    #preloader { transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1), visibility 0.7s cubic-bezier(0.4,0,0.2,1); }
+    #preloader.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .preloader-icon img { animation:preloaderPulse 1.6s ease-in-out infinite; }
+    @keyframes preloaderPulse {
+      0%,100% { transform:scale(1);    opacity:1;   }
+      50%      { transform:scale(1.06); opacity:0.7; }
+    }
+
+    /* ─── 4. HEADER SHRINK ───────────────────────────────── */
+    #siteHeader { transition:padding 0.4s ease, box-shadow 0.4s ease, background 0.4s ease; }
+    #siteHeader.scrolled { padding-top:8px; padding-bottom:8px; box-shadow:0 4px 30px rgba(0,0,0,0.18); }
+
+    /* ─── 5. NAV UNDERLINE ───────────────────────────────── */
+    .main-nav a { position:relative; }
+    .main-nav a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:2px; background:currentColor; border-radius:2px;
+      transition:width 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .main-nav a:hover::after, .main-nav a.active::after { width:100%; }
+
+    /* ─── 6. PAGE HERO CASCADE ───────────────────────────── */
+    .page-hero-tag {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+    }
+    .page-hero h1 {
+      opacity:0; transform:translateY(24px);
+      animation:heroFadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.40s forwards;
+    }
+    .page-hero p {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+    }
+    @keyframes heroFadeUp { to { opacity:1; transform:translateY(0); } }
+
+    /* ─── 7. SCROLL-REVEAL BASE ──────────────────────────── */
+    .reveal {
+      opacity:0; transform:translateY(36px);
+      transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+      will-change:opacity,transform;
+    }
+    .reveal.reveal-left  { transform:translateX(-48px); }
+    .reveal.reveal-right { transform:translateX(48px);  }
+    .reveal.reveal-scale { transform:scale(0.93) translateY(20px); }
+    .reveal.visible { opacity:1; transform:translateY(0) translateX(0) scale(1); }
+
+    /* ─── 8. STAGGER CHILDREN ────────────────────────────── */
+    .stagger-children > * { opacity:0; transform:translateY(28px); transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .stagger-children.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.00s; }
+    .stagger-children.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.10s; }
+    .stagger-children.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.20s; }
+    .stagger-children.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.30s; }
+    .stagger-children.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.40s; }
+    .stagger-children.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.50s; }
+
+    /* ─── 9. SECTION HEADERS ─────────────────────────────── */
+    .section-tag    { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.00s, transform 0.55s ease 0.00s; }
+    .section-title  { opacity:0; transform:translateY(20px); transition:opacity 0.60s ease 0.10s, transform 0.60s ease 0.10s; }
+    .section-divider{ opacity:0; transform:scaleX(0); transform-origin:center; transition:opacity 0.5s ease 0.20s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.20s; }
+    .section-desc   { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.30s, transform 0.55s ease 0.30s; }
+    .section-header.visible .section-tag,
+    .section-header.visible .section-title,
+    .section-header.visible .section-divider,
+    .section-header.visible .section-desc { opacity:1; transform:translateY(0) scaleX(1); }
+
+    /* ─── 10. CONTACT GRID — SPLIT SLIDE ────────────────── */
+    .contact-grid > *:first-child { opacity:0; transform:translateX(-50px); transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+    .contact-grid > *:last-child  { opacity:0; transform:translateX(50px);  transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s, transform 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s; }
+    .contact-grid.visible > *:first-child,
+    .contact-grid.visible > *:last-child { opacity:1; transform:translateX(0); }
+
+    /* ─── 11. CONTACT CARDS ──────────────────────────────── */
+    .contact-card {
+      transition:transform 0.38s cubic-bezier(0.22,1,0.36,1),
+                 box-shadow 0.38s ease,
+                 background 0.3s ease;
+      position:relative; overflow:hidden;
+    }
+    .contact-card::after {
+      content:''; position:absolute; left:0; top:0; bottom:0;
+      width:3px; background:var(--green);
+      transform:scaleY(0); transform-origin:top;
+      transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .contact-card:hover::after { transform:scaleY(1); }
+    .contact-card:hover {
+      transform:translateX(6px);
+      box-shadow:0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    /* Icon bounce */
+    .cc-icon {
+      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+                 background 0.3s ease;
+    }
+    .contact-card:hover .cc-icon { transform:scale(1.18) rotate(-8deg); }
+
+    /* ─── 12. WHATSAPP CTA BUTTON ────────────────────────── */
+    .wa-cta {
+      transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                 box-shadow 0.35s ease;
+      position:relative; overflow:hidden;
+    }
+    .wa-cta::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      opacity:0; transition:opacity 0.3s ease;
+    }
+    .wa-cta:hover::before { opacity:1; }
+    .wa-cta:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 14px 40px rgba(37,211,102,0.35); }
+    .wa-cta:active { transform:scale(0.98); }
+
+    /* WA icon bounce */
+    .wa-cta i { transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+    .wa-cta:hover i { transform:scale(1.2) rotate(-10deg); }
+
+    /* ─── 13. HOURS TABLE ROWS ───────────────────────────── */
+    .hours-table tr { transition:background 0.25s ease; }
+    .hours-table tr:hover { background:rgba(0,0,0,0.03); }
+    .hours-table td { transition:color 0.25s ease; }
+
+    /* ─── 14. FORM CARD ──────────────────────────────────── */
+    .form-card { transition:box-shadow 0.4s ease; }
+    .form-card:hover { box-shadow:0 20px 60px rgba(0,0,0,0.12); }
+
+    /* Form field focus lift */
+    .fc-group input,
+    .fc-group select,
+    .fc-group textarea {
+      transition:border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .fc-group input:focus,
+    .fc-group select:focus,
+    .fc-group textarea:focus {
+      transform:translateY(-1px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+      outline:none;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      position:relative; overflow:hidden;
+    }
+    .btn-submit:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 10px 32px rgba(0,0,0,0.22); }
+    .btn-submit:active { transform:scale(0.97); }
+
+    /* ─── 15. MAP CONTAINER ──────────────────────────────── */
+    .map-container {
+      opacity:0; transform:translateY(24px) scale(0.98);
+      transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),
+                 transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .map-container.visible { opacity:1; transform:translateY(0) scale(1); }
+    .map-container:hover { box-shadow:0 20px 60px rgba(0,0,0,0.18); transition:box-shadow 0.4s ease; }
+
+    /* ─── 16. FAQ CARDS ──────────────────────────────────── */
+    /* Individual FAQ answer cards */
+    .faq-answer-card {
+      transition:transform 0.38s cubic-bezier(0.22,1,0.36,1),
+                 box-shadow 0.38s ease;
+    }
+    .faq-answer-card:hover {
+      transform:translateY(-5px) scale(1.02);
+      box-shadow:0 14px 42px rgba(0,0,0,0.1);
+    }
+    .faq-answer-card h4 i {
+      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      display:inline-block;
+    }
+    .faq-answer-card:hover h4 i { transform:scale(1.3) rotate(-8deg); }
+
+    /* ─── 17. BUTTONS ────────────────────────────────────── */
+    .btn-gold, .btn-primary, .btn-outline, .btn-outline-light, .btn-dark {
+      transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      position:relative; overflow:hidden;
+    }
+    .btn-gold:hover, .btn-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 10px 32px rgba(0,0,0,0.22); }
+    .btn-gold:active, .btn-primary:active { transform:scale(0.97); }
+    .btn-outline:hover, .btn-outline-light:hover, .btn-dark:hover { transform:translateY(-2px) scale(1.02); }
+
+    /* ─── 18. SOCIAL LINKS ───────────────────────────────── */
+    .soc-link { transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease; }
+    .soc-link:hover { transform:translateY(-4px) scale(1.15) rotate(-6deg); }
+
+    /* ─── 19. FOOTER LINKS ───────────────────────────────── */
+    .footer-col a { transition:transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease; display:inline-block; }
+    .footer-col a:hover { transform:translateX(5px); }
+
+    /* ─── 20. MOBILE NAV ─────────────────────────────────── */
+    .mobile-nav a { opacity:0; transform:translateX(30px); transition:opacity 0.3s ease, transform 0.3s ease; }
+    .mobile-nav.open a { opacity:1; transform:translateX(0); }
+    .mobile-nav.open a:nth-child(1) { transition-delay:0.08s; }
+    .mobile-nav.open a:nth-child(2) { transition-delay:0.14s; }
+    .mobile-nav.open a:nth-child(3) { transition-delay:0.20s; }
+    .mobile-nav.open a:nth-child(4) { transition-delay:0.26s; }
+    .mobile-nav.open a:nth-child(5) { transition-delay:0.32s; }
+    .mobile-nav.open a:nth-child(6) { transition-delay:0.38s; }
+    .mobile-nav.open a:nth-child(7) { transition-delay:0.44s; }
+
+    /* ─── 21. CART & MODALS ──────────────────────────────── */
+    .cart-drawer  { transition:transform 0.45s cubic-bezier(0.22,1,0.36,1) !important; }
+    .cart-overlay { transition:opacity 0.45s ease !important; }
+    .modal-wrap.active .modal-box { animation:modalPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes modalPop {
+      from { opacity:0; transform:scale(0.88) translateY(24px); }
+      to   { opacity:1; transform:scale(1)    translateY(0);    }
+    }
+    .success-icon { animation:successBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes successBounce {
+      0%   { transform:scale(0) rotate(-30deg); opacity:0; }
+      60%  { transform:scale(1.2) rotate(5deg);  opacity:1; }
+      100% { transform:scale(1)   rotate(0deg);  opacity:1; }
+    }
+
+    /* ─── 22. WHATSAPP FLOAT ─────────────────────────────── */
+    .wa-float { animation:waPulse 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    @keyframes waPulse {
+      0%,100% { box-shadow:0 0 0 0  rgba(37,211,102,0.5); transform:scale(1);    }
+      50%      { box-shadow:0 0 0 14px rgba(37,211,102,0);  transform:scale(1.06); }
+    }
+
+    /* ─── 23. MAP BUTTON ROW ─────────────────────────────── */
+    .map-btn-row {
+      opacity:0; transform:translateY(14px);
+      transition:opacity 0.6s ease, transform 0.6s ease;
+    }
+    .map-btn-row.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── 24. CONTACT SECTION — inline left-divider ─────── */
+    .section-divider.left { transform-origin:left; }
+
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-icon"><img src="logo.png" alt="Mamosana"></div>
+  </div>
+</div>
+<style>.preloader-icon img { width:400px; height:auto; }</style>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="top-bar-item"><i class="fas fa-map-marker-alt"></i> 112 Ulundi St, Thembisa, 1632</span>
+    <span class="top-bar-item"><i class="fas fa-envelope"></i> <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></span>
+  </div>
+  <div class="top-bar-right">
+    <span class="top-bar-item"><i class="fas fa-leaf"></i> Natural · Holistic · Healing</span>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="logo.png" alt="Mamosana Wellness Boutique" class="logo-img">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="booking.html">Booking</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://wa.me/c/27627173265" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <button class="cart-icon-btn" onclick="openCart()"><i class="fas fa-shopping-bag"></i><span class="cart-badge">0</span></button>
+      <button class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+  <a href="index.html" onclick="toggleMobileNav()">Home</a>
+  <a href="about.html" onclick="toggleMobileNav()">About</a>
+  <a href="shop.html" onclick="toggleMobileNav()">Shop</a>
+  <a href="booking.html" onclick="toggleMobileNav()">Booking</a>
+  <a href="contact.html" onclick="toggleMobileNav()">Contact</a>
+  <a href="https://wa.me/c/27627173265" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="page-hero-tag"><i class="fas fa-hand-holding-heart"></i> We're Here for You</div>
+    <h1>Get In <em>Touch</em></h1>
+    <p>Have a question? Need guidance? We'd love to hear from you. Reach out and we'll respond quickly.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTACT SECTION -->
+<section style="background:var(--off-white)">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: Contact Info -->
+      <div>
+        <div class="section-tag"><i class="fas fa-address-card"></i> Contact Details</div>
+        <h2 class="section-title" style="text-align:left">How to <em>Reach</em> Us</h2>
+        <div class="section-divider left"></div>
+        <p style="color:var(--text-mid);font-size:0.9rem;line-height:1.85;margin-bottom:28px;font-weight:300">We're always happy to answer questions, assist with orders, or guide you toward the right wellness products or session. Reach us through any of the channels below.</p>
+
+        <div class="contact-cards stagger-children">
+          <div class="contact-card">
+            <div class="cc-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="cc-content">
+              <h4>Our Location</h4>
+              <p>112 Ulundi Street, Thembisa, 1632<br>Gauteng, South Africa</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon"><i class="fas fa-envelope"></i></div>
+            <div class="cc-content">
+              <h4>Email Us</h4>
+              <p><a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></p>
+              <p>We respond within 24 hours (business days)</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon"><i class="fas fa-truck"></i></div>
+            <div class="cc-content">
+              <h4>Delivery Options</h4>
+              <p>Pep Paxi – flat rate +R60<br>The Courier Guy – flat rate +R150</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon"><i class="fas fa-credit-card"></i></div>
+            <div class="cc-content">
+              <h4>Payment Methods</h4>
+              <p>PayFast (card, EFT, instant EFT)<br>PayFlex (buy now, pay in 4 – interest free)</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/c/27627173265" target="_blank" class="wa-cta reveal">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <h4>WhatsApp Catalogue</h4>
+            <p>Browse all products, ask questions and place orders directly on WhatsApp</p>
+          </div>
+        </a>
+
+        <div style="background:var(--white);border-radius:14px;padding:24px;border:1px solid var(--border)" class="reveal">
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:8px"><i class="fas fa-clock" style="color:var(--green)"></i> Business <em style="color:var(--green)">Hours</em></h4>
+          <table class="hours-table">
+            <tr><td>Monday – Friday</td><td>08:00 – 17:00</td></tr>
+            <tr><td>Saturday</td><td>09:00 – 14:00</td></tr>
+            <tr><td>Sunday</td><td class="closed">Closed</td></tr>
+            <tr><td>Public Holidays</td><td class="closed">Please WhatsApp to confirm</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Form -->
+      <div class="form-card">
+        <h3><i class="fas fa-paper-plane"></i> Send Us a Message</h3>
+        <p style="color:var(--text-light);font-size:0.84rem;margin-bottom:24px;font-weight:300">Fill in the form below and we'll get back to you at <strong>info@mamosanawellness.co.za</strong> within 24 hours.</p>
+        <form id="contactForm" onsubmit="submitContact(event)">
+          <div class="fc-row">
+            <div class="fc-group">
+              <label>First Name *</label>
+              <input type="text" name="fname" placeholder="First name" required>
+            </div>
+            <div class="fc-group">
+              <label>Last Name *</label>
+              <input type="text" name="lname" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="fc-group">
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="fc-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="+27 XX XXX XXXX">
+          </div>
+          <div class="fc-group">
+            <label>Subject *</label>
+            <select name="subject" required>
+              <option value="">Select a subject...</option>
+              <option>Product Enquiry</option>
+              <option>Order &amp; Delivery Query</option>
+              <option>Session / Booking</option>
+              <option>Payment Query</option>
+              <option>Returns / Refund</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="fc-group">
+            <label>Message *</label>
+            <textarea name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+          </div>
+          <div class="fc-group" style="flex-direction:row;align-items:flex-start;gap:10px">
+            <input type="checkbox" id="consent" required style="width:auto;padding:0;margin-top:3px;flex-shrink:0">
+            <label for="consent" style="font-size:0.77rem;color:var(--text-light);font-weight:300;text-transform:none;letter-spacing:0">I agree that my submitted data is collected and stored to process my enquiry.</label>
+          </div>
+          <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE MAP -->
+<section style="padding:0;background:var(--off-white)">
+  <div class="container" style="padding-bottom:80px">
+    <div class="section-header reveal" style="margin-bottom:32px">
+      <div class="section-tag"><i class="fas fa-map-marked-alt"></i> Find Us</div>
+      <h2 class="section-title">Our <em>Location</em></h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">112 Ulundi Street, Thembisa, 1632, Gauteng, South Africa</p>
+    </div>
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.5!2d28.2000!3d-26.0000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9579a1b7ecb5e3%3A0x1a2b3c4d5e6f7890!2s112+Ulundi+St%2C+Tembisa%2C+1632!5e0!3m2!1sen!2sza!4v1699999999999!5m2!1sen!2sza"
+        width="100%" height="420" style="border:0;display:block"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mamosana Wellness Boutique – 112 Ulundi St, Thembisa">
+      </iframe>
+    </div>
+    <div style="text-align:center;margin-top:20px" class="map-btn-row">
+      <a href="https://www.google.com/maps/search/112+Ulundi+St+Tembisa+1632" target="_blank" class="btn-outline" style="margin-right:12px"><i class="fas fa-map-marker-alt"></i> Open in Google Maps</a>
+      <a href="https://wa.me/c/27627173265" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> Get Directions on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--cream);padding:64px 0">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag"><i class="fas fa-question-circle"></i> FAQ</div>
+      <h2 class="section-title">Frequently Asked <em>Questions</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto" class="stagger-children">
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-truck"></i> How long does delivery take?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">Orders are dispatched within 1–2 business days. Pep Paxi typically takes 2–4 days. Courier Guy delivers door-to-door in 1–3 business days.</p>
+      </div>
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-undo"></i> Can I return a product?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">We accept returns on unopened products within 7 days of delivery. Please contact us via email or WhatsApp to initiate a return.</p>
+      </div>
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-globe"></i> Do you ship outside SA?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">Currently we ship within South Africa only. International shipping may be available in future. WhatsApp us for more information.</p>
+      </div>
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-bolt"></i> How does PayFlex work?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">PayFlex lets you split your purchase into 4 equal instalments over 6 weeks – completely interest free. Simply select PayFlex at checkout.</p>
+      </div>
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-leaf"></i> Are your products 100% natural?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">Absolutely. Every product we carry is 100% natural with no harmful additives, synthetic chemicals or fillers. Natural integrity is our core value.</p>
+      </div>
+      <div class="faq-answer-card" style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+        <h4 style="color:var(--green);font-size:0.9rem;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="fas fa-search-location"></i> How do I track my order?</h4>
+        <p style="color:var(--text-light);font-size:0.83rem;line-height:1.8;font-weight:300">After dispatch you'll receive tracking details via email and WhatsApp. You can also message us directly on WhatsApp for real-time updates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="logo icons.png" alt="Mamosana" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85">
+        <div class="footer-logo-text"><h1>MAMOSANA</h1><small>Wellness Boutique</small></div>
+      </div>
+      <p class="footer-brand-desc">Your trusted holistic wellness centre in Tembisa. Bringing nature's healing power to your doorstep.</p>
+      <div class="social-row">
+        <a href="#" class="soc-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/c/27627173265" class="soc-link"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:info@mamosanawellness.co.za" class="soc-link"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-col reveal"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="shop.html">Shop</a></li><li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Products</h4><ul>
+      <li><a href="shop.html">Supplements</a></li><li><a href="shop.html">Healing Teas</a></li>
+      <li><a href="shop.html">Sea Moss</a></li><li><a href="shop.html">Oils</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Contact</h4><ul>
+      <li><a href="contact.html">112 Ulundi St, Thembisa</a></li>
+      <li><a href="mailto:info@mamosanawellness.co.za">Email Us</a></li>
+      <li><a href="https://wa.me/c/27627173265">WhatsApp</a></li>
+      <li><a href="booking.html">Book a Session</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom reveal">
+    <p>© 2025 Mamosana Wellness Boutique · <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></p>
+    <p>Payment: <a href="#">PayFast</a> &amp; <a href="#">PayFlex</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/c/27627173265" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3><i class="fas fa-shopping-bag"></i> Your Cart</h3><button class="btn-close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button></div>
+  <div class="cart-body" id="cartItems"><div class="cart-empty-msg"><i class="fas fa-shopping-bag"></i><p>Your cart is empty.</p></div></div>
+  <div class="cart-foot">
+    <div class="ship-select"><label>Delivery Method</label>
+      <select id="shippingMethod" onchange="updateTotals()">
+        <option value="0">Select delivery...</option>
+        <option value="60">Pep Paxi (+R60)</option>
+        <option value="150">The Courier Guy (+R150)</option>
+      </select>
+    </div>
+    <div class="cart-totals">
+      <div class="ct-row"><span>Subtotal</span><span id="cartSubtotal">R0.00</span></div>
+      <div class="ct-row"><span>Delivery</span><span id="cartDelivery">R0.00</span></div>
+      <div class="ct-row total"><span>Total</span><span id="cartTotal">R0.00</span></div>
+    </div>
+    <div class="pay-opts">
+      <div class="pay-opt active" id="payOpt1" onclick="selectPayment('payfast')"><i class="fas fa-credit-card"></i> PayFast</div>
+      <div class="pay-opt" id="payOpt2" onclick="selectPayment('payflex')"><i class="fas fa-bolt"></i> PayFlex</div>
+    </div>
+    <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout <i class="fas fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-wrap" id="checkoutModal">
+  <div class="modal-box">
+    <h2 class="modal-title">Complete Your Order</h2><p class="modal-sub">Fill in your details below.</p>
+    <div class="form-grid">
+      <div class="form-group"><label>First Name *</label><input id="co_fname" type="text" placeholder="First name"></div>
+      <div class="form-group"><label>Last Name *</label><input id="co_lname" type="text" placeholder="Last name"></div>
+      <div class="form-group full"><label>Email *</label><input id="co_email" type="email" placeholder="your@email.com"></div>
+      <div class="form-group full"><label>Phone *</label><input id="co_phone" type="tel" placeholder="+27 XX XXX XXXX"></div>
+      <div class="form-group full"><label>Delivery Address *</label><input id="co_address" type="text" placeholder="Street address"></div>
+      <div class="form-group"><label>City *</label><input id="co_city" type="text" placeholder="City"></div>
+      <div class="form-group"><label>Postal Code *</label><input id="co_postal" type="text" placeholder="0000"></div>
+      <div class="form-group full"><label>Delivery Method *</label>
+        <select id="co_delivery" onchange="syncCheckoutDelivery()">
+          <option value="0">Select delivery...</option>
+          <option value="60">Pep Paxi (+R60)</option>
+          <option value="150">The Courier Guy (+R150)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-pay-section"><h4>Payment Method</h4>
+      <div class="modal-pay-methods">
+        <div class="pay-method active" id="pm1" onclick="selectCheckoutPayment('payfast')"><i class="fas fa-credit-card"></i><h5>PayFast</h5><p>Card, EFT</p></div>
+        <div class="pay-method" id="pm2" onclick="selectCheckoutPayment('payflex')"><i class="fas fa-bolt"></i><h5>PayFlex</h5><p>Pay in 4</p></div>
+      </div>
+      <div class="order-summary">
+        <div class="os-row"><span>Subtotal</span><span id="co_sub">R0.00</span></div>
+        <div class="os-row"><span>Delivery</span><span id="co_del">R0.00</span></div>
+        <div class="os-row total"><span>Total</span><span id="co_total">R0.00</span></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeCheckout()">Cancel</button>
+      <button class="btn-modal-place" onclick="placeOrder()"><i class="fas fa-lock"></i> Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-wrap" id="successModal">
+  <div class="modal-box success-box">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Order Confirmed!</h2>
+    <p>Thank you! Our team will be in touch with tracking details.</p>
+    <a href="https://wa.me/c/27627173265" target="_blank" class="btn-primary" style="display:inline-flex;margin-bottom:14px"><i class="fab fa-whatsapp"></i> Track via WhatsApp</a><br>
+    <button onclick="closeSuccess()" style="background:none;border:none;color:var(--green);cursor:pointer;text-decoration:underline;font-size:0.9rem;margin-top:10px">Continue Shopping</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     ANIMATION ENGINE — CONTACT PAGE
+════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── PRELOADER ─────────────────────────────────────── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var pl = document.getElementById('preloader');
+      if (pl) pl.classList.add('hidden');
+    }, 600);
+  });
+
+  /* ── HEADER SHRINK ─────────────────────────────────── */
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── SCROLL REVEAL ─────────────────────────────────── */
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll(
+    '.reveal, .stagger-children, .section-header, .contact-grid, .map-container, .map-btn-row'
+  ).forEach(function (el) { observer.observe(el); });
+
+  /* ── MOBILE NAV ────────────────────────────────────── */
+  var origToggle = window.toggleMobileNav;
+  window.toggleMobileNav = function () {
+    var nav = document.getElementById('mobileNav');
+    if (nav) nav.classList.toggle('open');
+    if (typeof origToggle === 'function') origToggle();
+  };
+
+  /* ── BUTTON RIPPLE ─────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.btn-submit,.btn-gold,.btn-primary,.btn-outline,.btn-outline-light,.btn-dark');
+    if (!btn) return;
+    var ripple = document.createElement('span');
+    var rect   = btn.getBoundingClientRect();
+    var size   = Math.max(rect.width, rect.height) * 2;
+    ripple.style.cssText = [
+      'position:absolute','border-radius:50%','pointer-events:none',
+      'background:rgba(255,255,255,0.28)',
+      'width:'  + size + 'px', 'height:' + size + 'px',
+      'left:'   + (e.clientX - rect.left  - size/2) + 'px',
+      'top:'    + (e.clientY - rect.top   - size/2) + 'px',
+      'transform:scale(0)', 'animation:rippleOut 0.6s ease forwards'
+    ].join(';');
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', function () { ripple.remove(); });
+  });
+
+  var ks = document.createElement('style');
+  ks.textContent = '@keyframes rippleOut{to{transform:scale(1);opacity:0}}';
+  document.head.appendChild(ks);
+
+})();
+</script>
+
+</body>
+</html>

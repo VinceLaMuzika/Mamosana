@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session | Mamosana Wellness Boutique</title>
+  <meta name="description" content="Book a personalised holistic wellness session at Mamosana Wellness Boutique, Tembisa. Ionic Foot Detox, Quantum Resonance Scan, Access Bars and Reiki Healing.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── ORIGINAL BOOKING STYLES ────────────────────────── */
+    .booking-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .process-steps { display:flex; flex-direction:column; gap:0; margin-top:32px; }
+    .step { display:flex; gap:18px; padding-bottom:28px; position:relative; }
+    .step:last-child { padding-bottom:0; }
+    .step::before {
+      content:''; position:absolute;
+      left:19px; top:44px; bottom:0; width:2px;
+      background:linear-gradient(to bottom, var(--green-light), transparent);
+    }
+    .step:last-child::before { display:none; }
+    .step-num {
+      width:40px; height:40px; border-radius:50%; flex-shrink:0;
+      background:linear-gradient(135deg, var(--green), var(--forest));
+      color:var(--white); font-weight:700; font-size:0.88rem;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .step-content h4 { color:var(--text); font-size:0.95rem; font-weight:600; margin-bottom:5px; }
+    .step-content p { color:var(--text-light); font-size:0.83rem; line-height:1.75; font-weight:300; }
+    .faq-list { display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+    .faq-item { background:var(--white); border-radius:10px; border:1px solid var(--border); overflow:hidden; }
+    .faq-q { padding:16px 20px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-weight:600; font-size:0.86rem; color:var(--text); }
+    .faq-q i { color:var(--green); transition:transform 0.35s cubic-bezier(0.34,1.2,0.64,1); }
+    .faq-a { padding:0 20px; max-height:0; overflow:hidden; transition:all 0.38s cubic-bezier(0.22,1,0.36,1); }
+    .faq-a.open { max-height:200px; padding:0 20px 16px; }
+    .faq-a p { font-size:0.83rem; color:var(--text-light); line-height:1.8; font-weight:300; }
+    @media(max-width:1024px){ .booking-grid { grid-template-columns:1fr; } }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAMOSANA BOOKING — SMOOTH ANIMATION LAYER
+  ═══════════════════════════════════════════════════════ -->
+  <style>
+
+    /* ─── 1. REDUCED-MOTION RESPECT ──────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    }
+
+    /* ─── 2. PAGE FADE IN ────────────────────────────────── */
+    body { animation:pageFadeIn 0.55s ease both; }
+    @keyframes pageFadeIn { from { opacity:0; } to { opacity:1; } }
+
+    /* ─── 3. PRELOADER ───────────────────────────────────── */
+    #preloader { transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1), visibility 0.7s cubic-bezier(0.4,0,0.2,1); }
+    #preloader.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .preloader-icon img { animation:preloaderPulse 1.6s ease-in-out infinite; }
+    @keyframes preloaderPulse {
+      0%,100% { transform:scale(1);    opacity:1;   }
+      50%      { transform:scale(1.06); opacity:0.7; }
+    }
+
+    /* ─── 4. HEADER SHRINK ───────────────────────────────── */
+    #siteHeader { transition:padding 0.4s ease, box-shadow 0.4s ease, background 0.4s ease; }
+    #siteHeader.scrolled { padding-top:8px; padding-bottom:8px; box-shadow:0 4px 30px rgba(0,0,0,0.18); }
+
+    /* ─── 5. NAV UNDERLINE ───────────────────────────────── */
+    .main-nav a { position:relative; }
+    .main-nav a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:2px; background:currentColor; border-radius:2px;
+      transition:width 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .main-nav a:hover::after, .main-nav a.active::after { width:100%; }
+
+    /* ─── 6. SCROLL-REVEAL BASE ──────────────────────────── */
+    .reveal {
+      opacity:0; transform:translateY(36px);
+      transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+      will-change:opacity,transform;
+    }
+    .reveal.reveal-left  { transform:translateX(-48px); }
+    .reveal.reveal-right { transform:translateX(48px);  }
+    .reveal.visible { opacity:1; transform:translateY(0) translateX(0); }
+
+    /* ─── 7. STAGGER CHILDREN ────────────────────────────── */
+    .stagger-children > * { opacity:0; transform:translateY(28px); transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .stagger-children.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.00s; }
+    .stagger-children.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.10s; }
+    .stagger-children.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.20s; }
+    .stagger-children.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.30s; }
+    .stagger-children.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.40s; }
+    .stagger-children.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.50s; }
+
+    /* ─── 8. SECTION HEADERS ─────────────────────────────── */
+    .section-tag    { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.00s, transform 0.55s ease 0.00s; }
+    .section-title  { opacity:0; transform:translateY(20px); transition:opacity 0.60s ease 0.10s, transform 0.60s ease 0.10s; }
+    .section-divider{ opacity:0; transform:scaleX(0); transform-origin:center; transition:opacity 0.5s ease 0.20s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.20s; }
+    .section-desc   { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.30s, transform 0.55s ease 0.30s; }
+    .section-header.visible .section-tag,
+    .section-header.visible .section-title,
+    .section-header.visible .section-divider,
+    .section-header.visible .section-desc { opacity:1; transform:translateY(0) scaleX(1); }
+
+    /* ─── 9. PAGE HERO CASCADE ───────────────────────────── */
+    .page-hero-tag {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+    }
+    .page-hero h1 {
+      opacity:0; transform:translateY(24px);
+      animation:heroFadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.40s forwards;
+    }
+    .page-hero p {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+    }
+    @keyframes heroFadeUp { to { opacity:1; transform:translateY(0); } }
+
+    /* ─── 10. SERVICE CARDS ──────────────────────────────── */
+    .service-card {
+      transition:transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+      position:relative; overflow:hidden;
+    }
+    .service-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+      opacity:0; transition:opacity 0.4s ease;
+    }
+    .service-card:hover::before { opacity:1; }
+    .service-card:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 16px 50px rgba(0,0,0,0.12); }
+    .service-icon { transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1); display:inline-flex; }
+    .service-card:hover .service-icon { transform:scale(1.2) rotate(-5deg); }
+
+    /* ─── 11. BOOKING GRID — SPLIT SLIDE ────────────────── */
+    .booking-grid > *:first-child { opacity:0; transform:translateX(-50px); transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+    .booking-grid > *:last-child  { opacity:0; transform:translateX(50px);  transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s, transform 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s; }
+    .booking-grid.visible > *:first-child,
+    .booking-grid.visible > *:last-child { opacity:1; transform:translateX(0); }
+
+    /* ─── 12. PROCESS STEPS — STAGGER ───────────────────── */
+    .step {
+      opacity:0; transform:translateX(-24px);
+      transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    }
+    .booking-grid.visible .step:nth-child(1) { opacity:1; transform:translateX(0); transition-delay:0.35s; }
+    .booking-grid.visible .step:nth-child(2) { opacity:1; transform:translateX(0); transition-delay:0.50s; }
+    .booking-grid.visible .step:nth-child(3) { opacity:1; transform:translateX(0); transition-delay:0.65s; }
+    .booking-grid.visible .step:nth-child(4) { opacity:1; transform:translateX(0); transition-delay:0.80s; }
+
+    /* Step number pulse on hover */
+    .step-num {
+      transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+    }
+    .step:hover .step-num { transform:scale(1.15); box-shadow:0 6px 20px rgba(0,0,0,0.2); }
+
+    /* Connector line draw animation */
+    .step::before {
+      transform-origin:top;
+      transform:scaleY(0);
+      transition:transform 0.5s ease;
+    }
+    .booking-grid.visible .step:nth-child(1)::before { transform:scaleY(1); transition-delay:0.9s; }
+    .booking-grid.visible .step:nth-child(2)::before { transform:scaleY(1); transition-delay:1.0s; }
+    .booking-grid.visible .step:nth-child(3)::before { transform:scaleY(1); transition-delay:1.1s; }
+
+    /* ─── 13. FAQ ITEMS ──────────────────────────────────── */
+    .faq-item {
+      transition:transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    }
+    .faq-item:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,0.08); }
+    .faq-q { transition:color 0.25s ease, background 0.25s ease; }
+    .faq-q:hover { color:var(--green); }
+
+    /* ─── 14. HOURS TABLE ────────────────────────────────── */
+    .booking-grid tr { transition:background 0.25s ease; }
+    .booking-grid tr:hover { background:rgba(0,0,0,0.03); }
+
+    /* ─── 15. BOOKING FORM CARD ──────────────────────────── */
+    .form-card {
+      transition:box-shadow 0.4s ease;
+    }
+    .form-card:hover { box-shadow:0 20px 60px rgba(0,0,0,0.12); }
+
+    /* Form field focus lift */
+    .fc-group input,
+    .fc-group select,
+    .fc-group textarea {
+      transition:border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .fc-group input:focus,
+    .fc-group select:focus,
+    .fc-group textarea:focus {
+      transform:translateY(-1px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+      outline:none;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      position:relative; overflow:hidden;
+    }
+    .btn-submit:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 10px 32px rgba(0,0,0,0.22); }
+    .btn-submit:active { transform:scale(0.97); }
+
+    /* ─── 16. BUTTONS ────────────────────────────────────── */
+    .btn-gold, .btn-primary, .btn-outline, .btn-outline-light, .btn-dark {
+      transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      position:relative; overflow:hidden;
+    }
+    .btn-gold:hover, .btn-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 10px 32px rgba(0,0,0,0.22); }
+    .btn-gold:active, .btn-primary:active { transform:scale(0.97); }
+    .btn-outline:hover, .btn-outline-light:hover, .btn-dark:hover { transform:translateY(-2px) scale(1.02); }
+
+    /* ─── 17. SOCIAL LINKS ───────────────────────────────── */
+    .soc-link { transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease; }
+    .soc-link:hover { transform:translateY(-4px) scale(1.15) rotate(-6deg); }
+
+    /* ─── 18. FOOTER LINKS ───────────────────────────────── */
+    .footer-col a { transition:transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease; display:inline-block; }
+    .footer-col a:hover { transform:translateX(5px); }
+
+    /* ─── 19. MOBILE NAV ─────────────────────────────────── */
+    .mobile-nav a { opacity:0; transform:translateX(30px); transition:opacity 0.3s ease, transform 0.3s ease; }
+    .mobile-nav.open a { opacity:1; transform:translateX(0); }
+    .mobile-nav.open a:nth-child(1) { transition-delay:0.08s; }
+    .mobile-nav.open a:nth-child(2) { transition-delay:0.14s; }
+    .mobile-nav.open a:nth-child(3) { transition-delay:0.20s; }
+    .mobile-nav.open a:nth-child(4) { transition-delay:0.26s; }
+    .mobile-nav.open a:nth-child(5) { transition-delay:0.32s; }
+    .mobile-nav.open a:nth-child(6) { transition-delay:0.38s; }
+    .mobile-nav.open a:nth-child(7) { transition-delay:0.44s; }
+
+    /* ─── 20. CART DRAWER ────────────────────────────────── */
+    .cart-drawer  { transition:transform 0.45s cubic-bezier(0.22,1,0.36,1) !important; }
+    .cart-overlay { transition:opacity 0.45s ease !important; }
+
+    /* ─── 21. MODAL POP ──────────────────────────────────── */
+    .modal-wrap.active .modal-box { animation:modalPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes modalPop {
+      from { opacity:0; transform:scale(0.88) translateY(24px); }
+      to   { opacity:1; transform:scale(1)    translateY(0);    }
+    }
+
+    /* ─── 22. SUCCESS ICON ───────────────────────────────── */
+    .success-icon { animation:successBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes successBounce {
+      0%   { transform:scale(0) rotate(-30deg); opacity:0; }
+      60%  { transform:scale(1.2) rotate(5deg);  opacity:1; }
+      100% { transform:scale(1)   rotate(0deg);  opacity:1; }
+    }
+
+    /* ─── 23. WHATSAPP FLOAT PULSE ───────────────────────── */
+    .wa-float { animation:waPulse 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    @keyframes waPulse {
+      0%,100% { box-shadow:0 0 0 0  rgba(37,211,102,0.5); transform:scale(1);    }
+      50%      { box-shadow:0 0 0 14px rgba(37,211,102,0);  transform:scale(1.06); }
+    }
+
+    /* ─── 24. HOURS CARD SHIMMER ─────────────────────────── */
+    [style*="background:var(--green-wash)"] {
+      position:relative; overflow:hidden;
+    }
+    [style*="background:var(--green-wash)"]::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+      transform:translateX(-100%);
+      animation:shimmer 5s ease-in-out infinite 2s;
+    }
+    @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-icon"><img src="logo.png" alt="Mamosana"></div>
+  </div>
+</div>
+<style>.preloader-icon img { width:400px; height:auto; }</style>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="top-bar-item"><i class="fas fa-map-marker-alt"></i> 112 Ulundi St, Thembisa, 1632</span>
+    <span class="top-bar-item"><i class="fas fa-envelope"></i> <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></span>
+  </div>
+  <div class="top-bar-right">
+    <span class="top-bar-item"><i class="fas fa-leaf"></i> Natural · Holistic · Healing</span>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="logo.png" alt="Mamosana Wellness Boutique" class="logo-img">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="booking.html" class="active">Booking</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://wa.me/c/27627173265" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <button class="cart-icon-btn" onclick="openCart()"><i class="fas fa-shopping-bag"></i><span class="cart-badge">0</span></button>
+      <button class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+  <a href="index.html" onclick="toggleMobileNav()">Home</a>
+  <a href="about.html" onclick="toggleMobileNav()">About</a>
+  <a href="shop.html" onclick="toggleMobileNav()">Shop</a>
+  <a href="booking.html" onclick="toggleMobileNav()">Booking</a>
+  <a href="contact.html" onclick="toggleMobileNav()">Contact</a>
+  <a href="https://wa.me/c/27627173265" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="page-hero-tag"><i class="fas fa-spa"></i> Personalised Wellness</div>
+    <h1>Book a <em>Session</em></h1>
+    <p>Let our holistic wellness specialists guide you toward balance, healing and vitality.</p>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section style="background:var(--off-white)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag"><i class="fas fa-hand-sparkles"></i> What We Offer</div>
+      <h2 class="section-title">Our <em>Wellness</em> Services</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">Every session is personalised, compassionate, and grounded in natural healing wisdom.</p>
+    </div>
+
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.3/dist/dotlottie-wc.js" type="module"></script>
+
+    <!-- Centred Animation -->
+    <div style="display:flex;justify-content:center;align-items:center;margin:30px 0;">
+      <dotlottie-wc 
+        src="https://lottie.host/daacdb6d-a680-4c50-8859-264220b2c1e7/x0kKMctkAC.lottie"
+        style="width:300px;height:300px"
+        autoplay
+        loop>
+      </dotlottie-wc>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px" class="services-home-grid stagger-children">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-water"></i></div>
+        <div>
+          <h4>Ionic Foot Detox</h4>
+          <p>Helps detox your organs and restores balance in your body. You are able to sleep well and get rid of fatigue. This gentle, non-invasive treatment draws toxins out through your feet using ionised water.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-microscope"></i></div>
+        <div>
+          <h4>Quantum Resonance Scan</h4>
+          <p>Identify hidden or unknown ailments in your body in a completely non-invasive manner. This advanced scan helps us understand what your body needs before any treatment begins.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-hands"></i></div>
+        <div>
+          <h4>Access Bars</h4>
+          <p>A holistic treatment to address pains, aches, stress and anxieties in your body. Access Bars restores balance in both your mind and body through gentle point activation on the head.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-yin-yang"></i></div>
+        <div>
+          <h4>Reiki Healing</h4>
+          <p>Balancing of your energy centres throughout your body. Reiki works with the body's natural energy fields to promote deep healing, clarity, peace and a sense of wholeness.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section style="background:var(--white)">
+  <div class="container">
+    <div class="booking-grid">
+      <!-- INFO SIDE -->
+      <div>
+        <div class="section-tag"><i class="fas fa-route"></i> How It Works</div>
+        <h2 class="section-title" style="text-align:left">Your Healing Journey <em>Starts Here</em></h2>
+        <div class="section-divider left"></div>
+        <p style="color:var(--text-mid);font-size:0.93rem;line-height:1.85;margin-bottom:32px;font-weight:300">Fill in the booking form and our team will confirm your appointment within 24 hours via email and WhatsApp. Your first step toward holistic healing is just a click away.</p>
+
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content"><h4>Fill In the Form</h4><p>Select your service, preferred date and time, and tell us a little about your wellness goals.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><h4>Receive Confirmation</h4><p>We'll confirm your booking within 24 hours via email and WhatsApp.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content"><h4>Attend Your Session</h4><p>Visit us at 112 Ulundi St, Thembisa or join us virtually. Bring any health questions you have.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content"><h4>Receive Your Wellness Plan</h4><p>Get a personalised natural wellness protocol and product recommendations tailored just for you.</p></div>
+          </div>
+        </div>
+
+        <div style="margin-top:44px" class="reveal">
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ink);margin-bottom:20px">Frequently Asked <em style="color:var(--green)">Questions</em></h3>
+          <div class="faq-list stagger-children">
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>How long is a session?</span><i class="fas fa-chevron-down"></i></div>
+              <div class="faq-a"><p>Most sessions are 45–60 minutes. Initial sessions may be longer as we conduct a thorough wellness assessment.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Is there a session fee?</span><i class="fas fa-chevron-down"></i></div>
+              <div class="faq-a"><p>Please contact us via WhatsApp or email for our current session fees. We offer affordable packages for all budgets.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>Can I consult online/virtually?</span><i class="fas fa-chevron-down"></i></div>
+              <div class="faq-a"><p>Some of our advisory sessions are available virtually via WhatsApp video call. Hands-on treatments like Ionic Foot Detox, Access Bars and Reiki require an in-person visit.</p></div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFaq(this)"><span>What should I bring?</span><i class="fas fa-chevron-down"></i></div>
+              <div class="faq-a"><p>Any existing medical records or diagnoses if relevant, a list of current medications or supplements, and your wellness goals.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hours -->
+        <div style="margin-top:40px;background:var(--green-wash);border-radius:14px;padding:28px;border:1px solid var(--border)" class="reveal">
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:8px"><i class="fas fa-clock" style="color:var(--green)"></i> Consultation <em style="color:var(--green)">Hours</em></h4>
+          <table style="width:100%;border-collapse:collapse">
+            <tr style="border-bottom:1px solid var(--border)"><td style="padding:9px 0;font-size:0.85rem;color:var(--text);font-weight:500">Monday – Friday</td><td style="text-align:right;color:var(--green);font-weight:700;font-size:0.85rem">08:00 – 17:00</td></tr>
+            <tr style="border-bottom:1px solid var(--border)"><td style="padding:9px 0;font-size:0.85rem;color:var(--text);font-weight:500">Saturday</td><td style="text-align:right;color:var(--green);font-weight:700;font-size:0.85rem">09:00 – 14:00</td></tr>
+            <tr><td style="padding:9px 0;font-size:0.85rem;color:var(--text);font-weight:500">Sunday</td><td style="text-align:right;color:var(--text-light);font-size:0.85rem">Closed</td></tr>
+          </table>
+          <p style="color:var(--text-light);font-size:0.78rem;margin-top:12px"><i class="fas fa-phone" style="color:var(--green);margin-right:5px"></i> Public holiday hours may vary. <a href="https://wa.me/c/27627173265" style="color:var(--green);font-weight:600">WhatsApp us to confirm</a></p>
+        </div>
+      </div>
+
+      <!-- FORM SIDE -->
+      <div class="form-card">
+        <h3><i class="fas fa-calendar-check"></i> Request Your Booking</h3>
+        <form id="bookingForm" onsubmit="submitBooking(event)">
+          <div class="fc-row">
+            <div class="fc-group">
+              <label>First Name *</label>
+              <input type="text" name="fname" placeholder="First name" required>
+            </div>
+            <div class="fc-group">
+              <label>Last Name *</label>
+              <input type="text" name="lname" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="fc-group">
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="fc-group">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" placeholder="+27 XX XXX XXXX" required>
+          </div>
+          <div class="fc-group">
+            <label>Service Required *</label>
+            <select name="service" required>
+              <option value="">Select a service...</option>
+              <option>Ionic Foot Detox</option>
+              <option>Quantum Resonance Scan</option>
+              <option>Access Bars</option>
+              <option>Reiki Healing</option>
+            </select>
+          </div>
+          <div class="fc-row">
+            <div class="fc-group">
+              <label>Preferred Date *</label>
+              <input type="date" name="date" required>
+            </div>
+            <div class="fc-group">
+              <label>Preferred Time *</label>
+              <select name="time" required>
+                <option value="">Select time...</option>
+                <option>08:00 – 09:00</option>
+                <option>09:00 – 10:00</option>
+                <option>10:00 – 11:00</option>
+                <option>11:00 – 12:00</option>
+                <option>13:00 – 14:00</option>
+                <option>14:00 – 15:00</option>
+                <option>15:00 – 16:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="fc-group">
+            <label>Session Type</label>
+            <select name="session_type">
+              <option>In-Person (112 Ulundi St, Thembisa)</option>
+              <option>Virtual (WhatsApp / Video Call)</option>
+            </select>
+          </div>
+          <div class="fc-group">
+            <label>Tell Us About Your Wellness Goals</label>
+            <textarea name="notes" rows="4" placeholder="Share any health concerns, goals or questions..."></textarea>
+          </div>
+          <div class="fc-group">
+            <label>How did you hear about us?</label>
+            <select name="source">
+              <option value="">Select...</option>
+              <option>WhatsApp Catalogue</option>
+              <option>Instagram</option>
+              <option>Facebook</option>
+              <option>Word of Mouth / Referral</option>
+              <option>Google Search</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit"><i class="fas fa-calendar-check"></i> Request My Booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="logo icons.png" alt="Mamosana" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85">
+        <div class="footer-logo-text"><h1>MAMOSANA</h1><small>Wellness Boutique</small></div>
+      </div>
+      <p class="footer-brand-desc">Your trusted holistic wellness centre in Tembisa. Bringing nature's healing power to your doorstep.</p>
+      <div class="social-row">
+        <a href="#" class="soc-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/c/27627173265" class="soc-link"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:info@mamosanawellness.co.za" class="soc-link"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-col reveal"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="shop.html">Shop</a></li><li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Services</h4><ul>
+      <li><a href="booking.html">Ionic Foot Detox</a></li>
+      <li><a href="booking.html">Quantum Resonance Scan</a></li>
+      <li><a href="booking.html">Access Bars</a></li>
+      <li><a href="booking.html">Reiki Healing</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Contact</h4><ul>
+      <li><a href="contact.html">112 Ulundi St, Thembisa</a></li>
+      <li><a href="mailto:info@mamosanawellness.co.za">Email Us</a></li>
+      <li><a href="https://wa.me/c/27627173265">WhatsApp</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom reveal">
+    <p>© 2025 Mamosana Wellness Boutique · <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></p>
+    <p>Payment: <a href="#">PayFast</a> &amp; <a href="#">PayFlex</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/c/27627173265" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3><i class="fas fa-shopping-bag"></i> Your Cart</h3><button class="btn-close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button></div>
+  <div class="cart-body" id="cartItems"><div class="cart-empty-msg"><i class="fas fa-shopping-bag"></i><p>Your cart is empty.</p></div></div>
+  <div class="cart-foot">
+    <div class="ship-select"><label>Delivery Method</label>
+      <select id="shippingMethod" onchange="updateTotals()">
+        <option value="0">Select delivery...</option>
+        <option value="60">Pep Paxi (+R60)</option>
+        <option value="150">The Courier Guy (+R150)</option>
+      </select>
+    </div>
+    <div class="cart-totals">
+      <div class="ct-row"><span>Subtotal</span><span id="cartSubtotal">R0.00</span></div>
+      <div class="ct-row"><span>Delivery</span><span id="cartDelivery">R0.00</span></div>
+      <div class="ct-row total"><span>Total</span><span id="cartTotal">R0.00</span></div>
+    </div>
+    <div class="pay-opts">
+      <div class="pay-opt active" id="payOpt1" onclick="selectPayment('payfast')"><i class="fas fa-credit-card"></i> PayFast</div>
+      <div class="pay-opt" id="payOpt2" onclick="selectPayment('payflex')"><i class="fas fa-bolt"></i> PayFlex</div>
+    </div>
+    <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout <i class="fas fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-wrap" id="checkoutModal">
+  <div class="modal-box">
+    <h2 class="modal-title">Complete Your Order</h2><p class="modal-sub">Fill in your details below.</p>
+    <div class="form-grid">
+      <div class="form-group"><label>First Name *</label><input id="co_fname" type="text" placeholder="First name"></div>
+      <div class="form-group"><label>Last Name *</label><input id="co_lname" type="text" placeholder="Last name"></div>
+      <div class="form-group full"><label>Email *</label><input id="co_email" type="email" placeholder="your@email.com"></div>
+      <div class="form-group full"><label>Phone *</label><input id="co_phone" type="tel" placeholder="+27 XX XXX XXXX"></div>
+      <div class="form-group full"><label>Delivery Address *</label><input id="co_address" type="text" placeholder="Street address"></div>
+      <div class="form-group"><label>City *</label><input id="co_city" type="text" placeholder="City"></div>
+      <div class="form-group"><label>Postal Code *</label><input id="co_postal" type="text" placeholder="0000"></div>
+      <div class="form-group full"><label>Delivery Method *</label>
+        <select id="co_delivery" onchange="syncCheckoutDelivery()">
+          <option value="0">Select delivery...</option>
+          <option value="60">Pep Paxi (+R60)</option>
+          <option value="150">The Courier Guy (+R150)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-pay-section"><h4>Payment Method</h4>
+      <div class="modal-pay-methods">
+        <div class="pay-method active" id="pm1" onclick="selectCheckoutPayment('payfast')"><i class="fas fa-credit-card"></i><h5>PayFast</h5><p>Card, EFT</p></div>
+        <div class="pay-method" id="pm2" onclick="selectCheckoutPayment('payflex')"><i class="fas fa-bolt"></i><h5>PayFlex</h5><p>Pay in 4</p></div>
+      </div>
+      <div class="order-summary">
+        <div class="os-row"><span>Subtotal</span><span id="co_sub">R0.00</span></div>
+        <div class="os-row"><span>Delivery</span><span id="co_del">R0.00</span></div>
+        <div class="os-row total"><span>Total</span><span id="co_total">R0.00</span></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeCheckout()">Cancel</button>
+      <button class="btn-modal-place" onclick="placeOrder()"><i class="fas fa-lock"></i> Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-wrap" id="successModal">
+  <div class="modal-box success-box">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Booking Requested!</h2>
+    <p>Thank you! We'll confirm your booking within 24 hours via email and WhatsApp.</p>
+    <a href="https://wa.me/c/27627173265" target="_blank" class="btn-primary" style="display:inline-flex;margin-bottom:14px"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a><br>
+    <button onclick="closeSuccess()" style="background:none;border:none;color:var(--green);cursor:pointer;text-decoration:underline;font-size:0.9rem;margin-top:10px">Back to Booking</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     ANIMATION ENGINE — BOOKING PAGE
+════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── PRELOADER ─────────────────────────────────────── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var pl = document.getElementById('preloader');
+      if (pl) pl.classList.add('hidden');
+    }, 600);
+  });
+
+  /* ── HEADER SHRINK ─────────────────────────────────── */
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── SCROLL REVEAL ─────────────────────────────────── */
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .stagger-children, .section-header, .booking-grid').forEach(function (el) {
+    observer.observe(el);
+  });
+
+  /* ── MOBILE NAV ────────────────────────────────────── */
+  var origToggle = window.toggleMobileNav;
+  window.toggleMobileNav = function () {
+    var nav = document.getElementById('mobileNav');
+    if (nav) nav.classList.toggle('open');
+    if (typeof origToggle === 'function') origToggle();
+  };
+
+  /* ── BUTTON RIPPLE ─────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.btn-submit,.btn-gold,.btn-primary,.btn-outline,.btn-outline-light,.btn-dark');
+    if (!btn) return;
+    var ripple = document.createElement('span');
+    var rect   = btn.getBoundingClientRect();
+    var size   = Math.max(rect.width, rect.height) * 2;
+    ripple.style.cssText = [
+      'position:absolute','border-radius:50%','pointer-events:none',
+      'background:rgba(255,255,255,0.28)',
+      'width:'  + size + 'px', 'height:' + size + 'px',
+      'left:'   + (e.clientX - rect.left  - size/2) + 'px',
+      'top:'    + (e.clientY - rect.top   - size/2) + 'px',
+      'transform:scale(0)',
+      'animation:rippleOut 0.6s ease forwards'
+    ].join(';');
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', function () { ripple.remove(); });
+  });
+
+  var ks = document.createElement('style');
+  ks.textContent = '@keyframes rippleOut{to{transform:scale(1);opacity:0}}';
+  document.head.appendChild(ks);
+
+})();
+
+/* ── FAQ TOGGLE ────────────────────────────────────── */
+function toggleFaq(el) {
+  var ans  = el.nextElementSibling;
+  var icon = el.querySelector('i');
+  var isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function (a) { a.classList.remove('open'); });
+  document.querySelectorAll('.faq-q i').forEach(function (i) { i.style.transform = ''; });
+  if (!isOpen) { ans.classList.add('open'); icon.style.transform = 'rotate(180deg)'; }
+}
+</script>
+
+</body>
+</html>

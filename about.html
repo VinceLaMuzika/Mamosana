@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Mamosana Wellness Boutique</title>
+  <meta name="description" content="Learn about Mamosana Wellness Boutique – Tembisa's trusted holistic health centre offering natural herbs, alternative medicines and wellness consultations.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAMOSANA ABOUT — SMOOTH ANIMATION LAYER
+  ═══════════════════════════════════════════════════════ -->
+  <style>
+
+    /* ─── 1. REDUCED-MOTION RESPECT ──────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    }
+
+    /* ─── 2. PAGE FADE IN ────────────────────────────────── */
+    body { animation:pageFadeIn 0.55s ease both; }
+    @keyframes pageFadeIn { from { opacity:0; } to { opacity:1; } }
+
+    /* ─── 3. PRELOADER ───────────────────────────────────── */
+    #preloader { transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1), visibility 0.7s cubic-bezier(0.4,0,0.2,1); }
+    #preloader.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .preloader-icon img { animation:preloaderPulse 1.6s ease-in-out infinite; }
+    @keyframes preloaderPulse {
+      0%,100% { transform:scale(1);    opacity:1;   }
+      50%      { transform:scale(1.06); opacity:0.7; }
+    }
+
+    /* ─── 4. HEADER SHRINK ───────────────────────────────── */
+    #siteHeader { transition:padding 0.4s ease, box-shadow 0.4s ease, background 0.4s ease; }
+    #siteHeader.scrolled { padding-top:8px; padding-bottom:8px; box-shadow:0 4px 30px rgba(0,0,0,0.18); }
+
+    /* ─── 5. NAV UNDERLINE ───────────────────────────────── */
+    .main-nav a { position:relative; }
+    .main-nav a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:2px; background:currentColor; border-radius:2px;
+      transition:width 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .main-nav a:hover::after, .main-nav a.active::after { width:100%; }
+
+    /* ─── 6. SCROLL-REVEAL BASE ──────────────────────────── */
+    .reveal {
+      opacity:0; transform:translateY(36px);
+      transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+      will-change:opacity,transform;
+    }
+    .reveal.reveal-left  { transform:translateX(-48px); }
+    .reveal.reveal-right { transform:translateX(48px);  }
+    .reveal.reveal-scale { transform:scale(0.92) translateY(24px); }
+    .reveal.visible { opacity:1; transform:translateY(0) translateX(0) scale(1); }
+
+    /* ─── 7. STAGGER CHILDREN ────────────────────────────── */
+    .stagger-children > * { opacity:0; transform:translateY(28px); transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .stagger-children.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.00s; }
+    .stagger-children.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.10s; }
+    .stagger-children.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.20s; }
+    .stagger-children.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.30s; }
+    .stagger-children.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.40s; }
+    .stagger-children.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.50s; }
+
+    /* ─── 8. SECTION HEADERS ─────────────────────────────── */
+    .section-tag    { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.00s, transform 0.55s ease 0.00s; }
+    .section-title  { opacity:0; transform:translateY(20px); transition:opacity 0.60s ease 0.10s, transform 0.60s ease 0.10s; }
+    .section-divider{ opacity:0; transform:scaleX(0); transform-origin:center; transition:opacity 0.5s ease 0.20s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.20s; }
+    .section-desc   { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease 0.30s, transform 0.55s ease 0.30s; }
+    .section-header.visible .section-tag,
+    .section-header.visible .section-title,
+    .section-header.visible .section-divider,
+    .section-header.visible .section-desc { opacity:1; transform:translateY(0) scaleX(1); }
+
+    /* ─── 9. PAGE HERO CASCADE ───────────────────────────── */
+    .page-hero-tag {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+    }
+    .page-hero h1 {
+      opacity:0; transform:translateY(24px);
+      animation:heroFadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.40s forwards;
+    }
+    .page-hero p {
+      opacity:0; transform:translateY(20px);
+      animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+    }
+    @keyframes heroFadeUp { to { opacity:1; transform:translateY(0); } }
+
+    /* ─── 10. STORY GRID — SPLIT SLIDE ──────────────────── */
+    .about-grid > *:first-child { opacity:0; transform:translateX(-50px); transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+    .about-grid > *:last-child  { opacity:0; transform:translateX(50px);  transition:opacity 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s, transform 0.85s cubic-bezier(0.22,1,0.36,1) 0.15s; }
+    .about-grid.visible > *:first-child,
+    .about-grid.visible > *:last-child { opacity:1; transform:translateX(0); }
+
+    /* ─── 11. ABOUT ORB — FLOAT & GLOW ──────────────────── */
+    .about-orb-wrap {
+      display:flex; align-items:center; justify-content:center;
+    }
+    .about-orb {
+      animation:orbFloat 5s ease-in-out infinite;
+      will-change:transform;
+      position:relative;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform:translateY(0px)   rotate(0deg);   }
+      33%      { transform:translateY(-16px) rotate(4deg);   }
+      66%      { transform:translateY(-8px)  rotate(-3deg);  }
+    }
+    /* Halo pulse behind orb */
+    .about-orb::before {
+      content:'';
+      position:absolute; inset:-18%;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(95,165,95,0.15) 0%, transparent 70%);
+      animation:orbHalo 4s ease-in-out infinite alternate;
+    }
+    @keyframes orbHalo {
+      from { transform:scale(0.9); opacity:0.5; }
+      to   { transform:scale(1.1); opacity:1;   }
+    }
+    /* Icon spin in orb on hover */
+    .about-orb:hover i {
+      animation:iconSpin 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes iconSpin {
+      from { transform:rotate(-30deg) scale(0.8); }
+      to   { transform:rotate(0deg)   scale(1);   }
+    }
+
+    /* ─── 12. HIGHLIGHT CARDS ────────────────────────────── */
+    .highlight-card {
+      transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+    }
+    .highlight-card:hover { transform:translateY(-6px) scale(1.04); box-shadow:0 12px 40px rgba(0,0,0,0.14); }
+    .highlight-card i { transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1); display:inline-block; }
+    .highlight-card:hover i { transform:scale(1.3) rotate(10deg); }
+
+    /* ─── 13. VALUE CARDS ────────────────────────────────── */
+    .value-card, [class*="value-card"] {
+      transition:transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+      position:relative; overflow:hidden;
+    }
+    .value-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+      opacity:0; transition:opacity 0.4s ease;
+    }
+    .value-card:hover::before { opacity:1; }
+    .value-card:hover { transform:translateY(-7px) scale(1.02); box-shadow:0 18px 50px rgba(0,0,0,0.13); }
+
+    .value-icon {
+      transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+      display:inline-flex;
+    }
+    .value-card:hover .value-icon { transform:scale(1.22) rotate(-8deg); }
+
+    /* ─── 14. TESTIMONIAL CARDS ──────────────────────────── */
+    .tcard { transition:transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
+    .tcard:hover { transform:translateY(-8px); box-shadow:0 24px 64px rgba(0,0,0,0.18); }
+    .tcard:hover .tcard-stars i { animation:starPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .tcard:hover .tcard-stars i:nth-child(1) { animation-delay:0.00s; }
+    .tcard:hover .tcard-stars i:nth-child(2) { animation-delay:0.06s; }
+    .tcard:hover .tcard-stars i:nth-child(3) { animation-delay:0.12s; }
+    .tcard:hover .tcard-stars i:nth-child(4) { animation-delay:0.18s; }
+    .tcard:hover .tcard-stars i:nth-child(5) { animation-delay:0.24s; }
+    @keyframes starPop {
+      0%   { transform:scale(1);    }
+      50%  { transform:scale(1.4) rotate(15deg); }
+      100% { transform:scale(1);    }
+    }
+
+    /* ─── 15. CTA BANNER SHIMMER ─────────────────────────── */
+    .cta-banner { position:relative; overflow:hidden; }
+    .cta-banner::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+      transform:translateX(-100%);
+      animation:ctaShimmer 4s ease-in-out infinite;
+    }
+    @keyframes ctaShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+    /* ─── 16. BUTTONS ────────────────────────────────────── */
+    .btn-gold, .btn-primary, .btn-outline, .btn-outline-light, .btn-dark {
+      transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      position:relative; overflow:hidden;
+    }
+    .btn-gold:hover, .btn-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 10px 32px rgba(0,0,0,0.22); }
+    .btn-gold:active, .btn-primary:active { transform:scale(0.97); }
+    .btn-outline:hover, .btn-outline-light:hover, .btn-dark:hover { transform:translateY(-2px) scale(1.02); }
+
+    /* ─── 17. SOCIAL LINKS ───────────────────────────────── */
+    .soc-link { transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease; }
+    .soc-link:hover { transform:translateY(-4px) scale(1.15) rotate(-6deg); }
+
+    /* ─── 18. FOOTER LINKS ───────────────────────────────── */
+    .footer-col a { transition:transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease; display:inline-block; }
+    .footer-col a:hover { transform:translateX(5px); }
+
+    /* ─── 19. MOBILE NAV ─────────────────────────────────── */
+    .mobile-nav a { opacity:0; transform:translateX(30px); transition:opacity 0.3s ease, transform 0.3s ease; }
+    .mobile-nav.open a { opacity:1; transform:translateX(0); }
+    .mobile-nav.open a:nth-child(1) { transition-delay:0.08s; }
+    .mobile-nav.open a:nth-child(2) { transition-delay:0.14s; }
+    .mobile-nav.open a:nth-child(3) { transition-delay:0.20s; }
+    .mobile-nav.open a:nth-child(4) { transition-delay:0.26s; }
+    .mobile-nav.open a:nth-child(5) { transition-delay:0.32s; }
+    .mobile-nav.open a:nth-child(6) { transition-delay:0.38s; }
+    .mobile-nav.open a:nth-child(7) { transition-delay:0.44s; }
+
+    /* ─── 20. CART & MODALS ──────────────────────────────── */
+    .cart-drawer  { transition:transform 0.45s cubic-bezier(0.22,1,0.36,1) !important; }
+    .cart-overlay { transition:opacity 0.45s ease !important; }
+    .modal-wrap.active .modal-box { animation:modalPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes modalPop {
+      from { opacity:0; transform:scale(0.88) translateY(24px); }
+      to   { opacity:1; transform:scale(1)    translateY(0);    }
+    }
+    .success-icon { animation:successBounce 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes successBounce {
+      0%   { transform:scale(0) rotate(-30deg); opacity:0; }
+      60%  { transform:scale(1.2) rotate(5deg);  opacity:1; }
+      100% { transform:scale(1)   rotate(0deg);  opacity:1; }
+    }
+
+    /* ─── 21. WHATSAPP FLOAT ─────────────────────────────── */
+    .wa-float { animation:waPulse 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    @keyframes waPulse {
+      0%,100% { box-shadow:0 0 0 0  rgba(37,211,102,0.5); transform:scale(1);    }
+      50%      { box-shadow:0 0 0 14px rgba(37,211,102,0);  transform:scale(1.06); }
+    }
+
+    /* ─── 22. VALUES GRID — COUNTER ROLL-UP ─────────────── */
+    /* Each value card icon counts as a micro-reveal */
+    .values-grid {
+      opacity:0; transform:translateY(20px);
+      transition:opacity 0.5s ease, transform 0.5s ease;
+    }
+    .values-grid.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── 23. "NAME" HIGHLIGHT — GLOW PULSE ─────────────── */
+    em[style*="color:var(--green)"][style*="font-family"] {
+      display:inline-block;
+      animation:nameGlow 3s ease-in-out infinite;
+    }
+    @keyframes nameGlow {
+      0%,100% { text-shadow:none; }
+      50%      { text-shadow:0 0 20px rgba(95,165,95,0.4); }
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-icon"><img src="logo.png" alt="Mamosana"></div>
+  </div>
+</div>
+<style>.preloader-icon img { width:400px; height:auto; }</style>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="top-bar-item"><i class="fas fa-map-marker-alt"></i> 112 Ulundi St, Thembisa, 1632</span>
+    <span class="top-bar-item"><i class="fas fa-envelope"></i> <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></span>
+  </div>
+  <div class="top-bar-right">
+    <span class="top-bar-item"><i class="fas fa-leaf"></i> Natural · Holistic · Healing</span>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="logo.png" alt="Mamosana Wellness Boutique" class="logo-img">
+    </a>
+    <style>
+      .site-logo { display:inline-flex; align-items:center; gap:12px; text-decoration:none; }
+      .logo-img  { width:120px; height:auto; }
+      .logo-text h1 { margin:0; font-size:24px; }
+      .logo-text small { display:block; font-size:13px; }
+    </style>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="booking.html">Booking</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://wa.me/c/27627173265" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <button class="cart-icon-btn" onclick="openCart()"><i class="fas fa-shopping-bag"></i><span class="cart-badge">0</span></button>
+      <button class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+  <a href="index.html" onclick="toggleMobileNav()">Home</a>
+  <a href="about.html" onclick="toggleMobileNav()">About</a>
+  <a href="shop.html" onclick="toggleMobileNav()">Shop</a>
+  <a href="booking.html" onclick="toggleMobileNav()">Booking</a>
+  <a href="contact.html" onclick="toggleMobileNav()">Contact</a>
+  <a href="https://wa.me/c/27627173265" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="page-hero-tag"><i class="fas fa-seedling"></i> Our Story</div>
+    <h1>About <em>Mamosana</em></h1>
+    <p>Rooted in Tembisa. Committed to your wellbeing. Grounded in nature's wisdom.</p>
+  </div>
+</div>
+
+<!-- STORY -->
+<section style="background:var(--white)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center" class="about-grid">
+      <div class="about-orb-wrap">
+        <div class="about-orb">
+          <i class="fas fa-seedling"></i>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag"><i class="fas fa-leaf"></i> Who We Are</div>
+        <h2 class="section-title" style="text-align:left">Healing From the <em>Earth</em>, For You</h2>
+        <div class="section-divider left"></div>
+        <p style="color:var(--text-mid);line-height:1.9;margin-bottom:18px;font-weight:300">Mamosana Wellness Boutique is a holistic wellness centre rooted in the heart of Tembisa, Gauteng. Founded with a deep belief in the healing power of nature, we are dedicated to making holistic health accessible, affordable, and effective for every family.</p>
+        <p style="color:var(--text-mid);line-height:1.9;margin-bottom:18px;font-weight:300">Our name, <em style="color:var(--green);font-style:italic;font-family:'Cormorant Garamond',serif">"Mamosana"</em>, reflects our core purpose – nurturing wellness and wholeness. We draw on both ancient African healing traditions and modern natural medicine to bring you a curated collection of the finest herbs, supplements, teas, sea moss, and natural oils.</p>
+        <p style="color:var(--text-mid);line-height:1.9;margin-bottom:32px;font-weight:300">Every product in our boutique is hand-selected for purity, potency and effectiveness. We don't believe in shortcuts. We believe in healing – deep, sustainable, whole-body healing.</p>
+        <div class="highlights-grid stagger-children">
+          <div class="highlight-card"><i class="fas fa-seedling"></i><h4>Ethically Sourced</h4><p>All natural, no fillers</p></div>
+          <div class="highlight-card"><i class="fas fa-heart"></i><h4>Community First</h4><p>Proudly rooted in Tembisa</p></div>
+          <div class="highlight-card"><i class="fas fa-user-md"></i><h4>Expert Guidance</h4><p>Personalised sessions</p></div>
+          <div class="highlight-card"><i class="fas fa-truck"></i><h4>Fast Delivery</h4><p>Nationwide shipping</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VALUES -->
+<section style="background:var(--off-white)">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag"><i class="fas fa-star"></i> What We Stand For</div>
+      <h2 class="section-title">Our Mission & <em>Values</em></h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">These principles guide everything we do – from the products we source to the service we offer.</p>
+    </div>
+    <div class="values-grid stagger-children">
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-leaf"></i></div>
+        <h4>Natural Integrity</h4>
+        <p>We only stock products that are 100% natural and free from harmful chemicals. Your body deserves the best that nature has to offer.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-hands-helping"></i></div>
+        <h4>Accessible Wellness</h4>
+        <p>Holistic health shouldn't be a luxury. We work hard to make natural remedies affordable and accessible to every family in our community.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-book-open"></i></div>
+        <h4>Education First</h4>
+        <p>We don't just sell products – we teach. Our consultations empower you with knowledge to make the best choices for your health.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-globe-africa"></i></div>
+        <h4>Ubuntu Spirit</h4>
+        <p>We are rooted in the philosophy that a community is healthy when its individuals are healthy. We heal together.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-award"></i></div>
+        <h4>Quality Always</h4>
+        <p>Every product is tested and sourced from trusted suppliers. We stand behind everything we sell with complete confidence.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-heart"></i></div>
+        <h4>Care with Heart</h4>
+        <p>We treat every customer like family. Your wellness journey is personal and we're honoured to be part of it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section-testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color:var(--gold-light);border-color:rgba(226,201,122,0.25);background:rgba(226,201,122,0.07)"><i class="fas fa-star"></i> Reviews</div>
+      <h2 class="section-title light">Client <em style="color:var(--gold-light)">Testimonials</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="testimonials-grid stagger-children">
+      <div class="tcard">
+        <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="tcard-text">"Mamosana changed my life. After 3 months of using their Sea Moss and gut health teas, my digestion is completely transformed. The consultation was life-changing!"</p>
+        <div class="tcard-author"><div class="author-av"><i class="fas fa-user"></i></div><div><div class="author-name">Precious M.</div><div class="author-loc">Tembisa, Gauteng</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="tcard-text">"I was sceptical at first but the Womb Tea and Shilajit combination recommended in my consultation has been incredible. Natural, effective and so caring."</p>
+        <div class="tcard-author"><div class="author-av"><i class="fas fa-user"></i></div><div><div class="author-name">Nomsa K.</div><div class="author-loc">Kempton Park</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="tcard-text">"Best holistic wellness boutique in Tembisa. The team genuinely cares about your health. Products are top quality and delivery is always fast."</p>
+        <div class="tcard-author"><div class="author-av"><i class="fas fa-user"></i></div><div><div class="author-name">Sipho D.</div><div class="author-loc">Midrand</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner reveal reveal-scale">
+  <div class="container" style="position:relative;z-index:1">
+    <h2>Start Your Wellness Journey Today</h2>
+    <p>Book a personalised session or browse our natural product range.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="booking.html" class="btn-dark"><i class="fas fa-calendar-alt"></i> Book a Session</a>
+      <a href="shop.html" class="btn-dark"><i class="fas fa-shopping-bag"></i> Shop Products</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="logo icons.png" alt="Mamosana" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85">
+        <div class="footer-logo-text"><h1>MAMOSANA</h1><small>Wellness Boutique</small></div>
+      </div>
+      <p class="footer-brand-desc">Your trusted holistic wellness centre in Tembisa. Bringing nature's healing power to your doorstep.</p>
+      <div class="social-row">
+        <a href="#" class="soc-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/c/27627173265" class="soc-link"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:info@mamosanawellness.co.za" class="soc-link"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-col reveal"><h4>Pages</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="shop.html">Shop</a></li><li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Products</h4><ul>
+      <li><a href="shop.html">Supplements</a></li><li><a href="shop.html">Healing Teas</a></li>
+      <li><a href="shop.html">Sea Moss</a></li><li><a href="shop.html">Oils</a></li>
+    </ul></div>
+    <div class="footer-col reveal"><h4>Contact</h4><ul>
+      <li><a href="mailto:info@mamosanawellness.co.za">Email Us</a></li>
+      <li><a href="https://wa.me/c/27627173265">WhatsApp</a></li>
+      <li><a href="booking.html">Book a Session</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom reveal">
+    <p>© 2025 Mamosana Wellness Boutique · <a href="mailto:info@mamosanawellness.co.za">info@mamosanawellness.co.za</a></p>
+    <p>Payment: <a href="#">PayFast</a> &amp; <a href="#">PayFlex</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/c/27627173265" target="_blank" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3><i class="fas fa-shopping-bag"></i> Your Cart</h3><button class="btn-close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button></div>
+  <div class="cart-body" id="cartItems"><div class="cart-empty-msg"><i class="fas fa-shopping-bag"></i><p>Your cart is empty.</p></div></div>
+  <div class="cart-foot">
+    <div class="ship-select"><label>Delivery Method</label>
+      <select id="shippingMethod" onchange="updateTotals()">
+        <option value="0">Select delivery...</option>
+        <option value="60">Pep Paxi (+R60)</option>
+        <option value="150">The Courier Guy (+R150)</option>
+      </select>
+    </div>
+    <div class="cart-totals">
+      <div class="ct-row"><span>Subtotal</span><span id="cartSubtotal">R0.00</span></div>
+      <div class="ct-row"><span>Delivery</span><span id="cartDelivery">R0.00</span></div>
+      <div class="ct-row total"><span>Total</span><span id="cartTotal">R0.00</span></div>
+    </div>
+    <div class="pay-opts">
+      <div class="pay-opt active" id="payOpt1" onclick="selectPayment('payfast')"><i class="fas fa-credit-card"></i> PayFast</div>
+      <div class="pay-opt" id="payOpt2" onclick="selectPayment('payflex')"><i class="fas fa-bolt"></i> PayFlex</div>
+    </div>
+    <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout <i class="fas fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-wrap" id="checkoutModal">
+  <div class="modal-box">
+    <h2 class="modal-title">Complete Your Order</h2><p class="modal-sub">Fill in your details below.</p>
+    <div class="form-grid">
+      <div class="form-group"><label>First Name *</label><input id="co_fname" type="text" placeholder="First name"></div>
+      <div class="form-group"><label>Last Name *</label><input id="co_lname" type="text" placeholder="Last name"></div>
+      <div class="form-group full"><label>Email *</label><input id="co_email" type="email" placeholder="your@email.com"></div>
+      <div class="form-group full"><label>Phone *</label><input id="co_phone" type="tel" placeholder="+27 XX XXX XXXX"></div>
+      <div class="form-group full"><label>Delivery Address *</label><input id="co_address" type="text" placeholder="Street address"></div>
+      <div class="form-group"><label>City *</label><input id="co_city" type="text" placeholder="City"></div>
+      <div class="form-group"><label>Postal Code *</label><input id="co_postal" type="text" placeholder="0000"></div>
+      <div class="form-group full"><label>Delivery Method *</label>
+        <select id="co_delivery" onchange="syncCheckoutDelivery()">
+          <option value="0">Select delivery...</option>
+          <option value="60">Pep Paxi (+R60)</option>
+          <option value="150">The Courier Guy (+R150)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-pay-section"><h4>Payment Method</h4>
+      <div class="modal-pay-methods">
+        <div class="pay-method active" id="pm1" onclick="selectCheckoutPayment('payfast')"><i class="fas fa-credit-card"></i><h5>PayFast</h5><p>Card, EFT or Instant EFT</p></div>
+        <div class="pay-method" id="pm2" onclick="selectCheckoutPayment('payflex')"><i class="fas fa-bolt"></i><h5>PayFlex</h5><p>Buy now, pay in 4</p></div>
+      </div>
+      <div class="order-summary">
+        <div class="os-row"><span>Subtotal</span><span id="co_sub">R0.00</span></div>
+        <div class="os-row"><span>Delivery</span><span id="co_del">R0.00</span></div>
+        <div class="os-row total"><span>Total</span><span id="co_total">R0.00</span></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeCheckout()">Cancel</button>
+      <button class="btn-modal-place" onclick="placeOrder()"><i class="fas fa-lock"></i> Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-wrap" id="successModal">
+  <div class="modal-box success-box">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Order Confirmed!</h2>
+    <p>Thank you! Our team will be in touch with tracking details.</p>
+    <a href="https://wa.me/c/27627173265" target="_blank" class="btn-primary" style="display:inline-flex;margin-bottom:14px"><i class="fab fa-whatsapp"></i> Track via WhatsApp</a><br>
+    <button onclick="closeSuccess()" style="background:none;border:none;color:var(--green);cursor:pointer;text-decoration:underline;font-size:0.9rem;margin-top:10px">Continue Shopping</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     ANIMATION ENGINE — ABOUT PAGE
+════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── PRELOADER ─────────────────────────────────────── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var pl = document.getElementById('preloader');
+      if (pl) pl.classList.add('hidden');
+    }, 600);
+  });
+
+  /* ── HEADER SHRINK ─────────────────────────────────── */
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function () {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── SCROLL REVEAL ─────────────────────────────────── */
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll(
+    '.reveal, .stagger-children, .section-header, .about-grid, .values-grid'
+  ).forEach(function (el) { observer.observe(el); });
+
+  /* ── MOBILE NAV ────────────────────────────────────── */
+  var origToggle = window.toggleMobileNav;
+  window.toggleMobileNav = function () {
+    var nav = document.getElementById('mobileNav');
+    if (nav) nav.classList.toggle('open');
+    if (typeof origToggle === 'function') origToggle();
+  };
+
+  /* ── BUTTON RIPPLE ─────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.btn-gold,.btn-primary,.btn-outline,.btn-outline-light,.btn-dark');
+    if (!btn) return;
+    var ripple = document.createElement('span');
+    var rect   = btn.getBoundingClientRect();
+    var size   = Math.max(rect.width, rect.height) * 2;
+    ripple.style.cssText = [
+      'position:absolute','border-radius:50%','pointer-events:none',
+      'background:rgba(255,255,255,0.28)',
+      'width:'  + size + 'px', 'height:' + size + 'px',
+      'left:'   + (e.clientX - rect.left  - size/2) + 'px',
+      'top:'    + (e.clientY - rect.top   - size/2) + 'px',
+      'transform:scale(0)', 'animation:rippleOut 0.6s ease forwards'
+    ].join(';');
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', function () { ripple.remove(); });
+  });
+
+  var ks = document.createElement('style');
+  ks.textContent = '@keyframes rippleOut{to{transform:scale(1);opacity:0}}';
+  document.head.appendChild(ks);
+
+})();
+</script>
+
+</body>
+</html>
