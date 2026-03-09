@@ -912,66 +912,54 @@
 })();
 </script>
 
-<!-- ═══════════════════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════════════════════
      MAMOSANA — MOBILE NAV FIX
-     Paste this block into EVERY HTML page, just before </body>.
-     It replaces the broken toggleMobileNav so the burger works reliably.
-     ═══════════════════════════════════════════════════════════════════ -->
-<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+     Paste this entire block into EVERY HTML page, just before </body>.
+     Place it AFTER your existing <script src="main.js"></script> line.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<!-- Backdrop overlay (closes nav on outside tap) -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
 <script>
 (function () {
   'use strict';
 
-  /* Create overlay if it doesn't exist yet */
-  function getOverlay() {
-    return document.getElementById('mobileNavOverlay');
-  }
+  var nav     = document.getElementById('mobileNav');
+  var overlay = document.getElementById('mobileNavOverlay');
 
-  function openMobileNav() {
-    var nav     = document.getElementById('mobileNav');
-    var overlay = getOverlay();
+  function openNav() {
     if (!nav) return;
     nav.classList.add('open');
     if (overlay) overlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // prevent background scroll
+    document.body.style.overflow = 'hidden';
   }
 
-  function closeMobileNav() {
-    var nav     = document.getElementById('mobileNav');
-    var overlay = getOverlay();
+  function closeNav() {
     if (!nav) return;
     nav.classList.remove('open');
     if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  /* Override the global toggleMobileNav used by onclick="" in HTML */
+  /* ── Override the global used by all onclick="toggleMobileNav()" ── */
   window.toggleMobileNav = function () {
-    var nav = document.getElementById('mobileNav');
-    if (!nav) return;
-    if (nav.classList.contains('open')) {
-      closeMobileNav();
-    } else {
-      openMobileNav();
-    }
+    nav && nav.classList.contains('open') ? closeNav() : openNav();
   };
 
-  /* Also expose closeMobileNav globally (used by overlay onclick) */
-  window.closeMobileNav = closeMobileNav;
+  /* ── Overlay tap closes nav ─────────────────────────────────────── */
+  if (overlay) overlay.addEventListener('click', closeNav);
 
-  /* Close on Escape key */
+  /* ── Escape key closes nav ──────────────────────────────────────── */
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMobileNav();
+    if (e.key === 'Escape') closeNav();
   });
 
-  /* Close when a nav link is clicked (links already have onclick="toggleMobileNav()" 
-     but this catches any that don't) */
+  /* ── Nav links close nav on tap ─────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
-    var nav = document.getElementById('mobileNav');
     if (!nav) return;
-    nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', closeMobileNav);
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeNav);
     });
   });
 

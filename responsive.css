@@ -1,24 +1,19 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   MAMOSANA WELLNESS BOUTIQUE — responsive.css
-   Add  <link rel="stylesheet" href="responsive.css">  to EVERY page,
-   AFTER style.css  (last <link> before </head> is fine too).
-   This file fixes all mobile / tablet layout issues site-wide.
+   MAMOSANA WELLNESS BOUTIQUE — responsive.css  v2
+   Link AFTER style.css on every page:
+     <link rel="stylesheet" href="responsive.css">
    ═══════════════════════════════════════════════════════════════════════════ */
 
-
-/* ─── 0. BASE SAFETY ──────────────────────────────────────────────────────── */
+/* ─── 0. GLOBAL SAFETY ────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-img, video, iframe      { max-width: 100%; }
+img, video, iframe      { max-width: 100%; height: auto; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   1. MOBILE NAV  — burger menu show / hide
-   The animation engine only adds .open for link stagger;
-   the actual visibility toggle is handled here so it works
-   whether or not main.js fires correctly.
+   1. MOBILE NAV PANEL
    ═══════════════════════════════════════════════════════════════════════════ */
 .mobile-nav {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   position: fixed;
   top: 0; right: 0;
@@ -29,35 +24,39 @@ img, video, iframe      { max-width: 100%; }
   padding: 28px 24px;
   gap: 4px;
   overflow-y: auto;
-  transform: translateX(100%);      /* hidden off-screen by default */
+  transform: translateX(110%);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1),
-              opacity   0.45s ease;
-  box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+  transition: transform 0.42s cubic-bezier(0.22,1,0.36,1),
+              opacity   0.42s ease,
+              visibility 0.42s;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.2);
 }
 .mobile-nav.open {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
+  transform: translateX(0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
-/* Overlay backdrop */
-.mobile-nav-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 9998;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+/* Nav links — override animation-layer opacity:0 */
+.mobile-nav a {
+  display: block !important;
+  padding: 14px 0 !important;
+  font-size: 1rem !important;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: color 0.2s ease !important;
 }
-.mobile-nav-overlay.active {
-  display: block;
-  opacity: 1;
-}
+.mobile-nav a:hover { color: var(--green, #5a9a5a) !important; }
+.mobile-nav a:last-of-type { border-bottom: none !important; }
 
-.mobile-nav .mobile-close {
+.mobile-close {
   align-self: flex-end;
   background: none;
   border: none;
@@ -65,39 +64,41 @@ img, video, iframe      { max-width: 100%; }
   cursor: pointer;
   color: #333;
   padding: 4px 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   line-height: 1;
 }
-.mobile-nav a {
-  display: block;
-  padding: 13px 0;
-  font-size: 1.05rem;
-  color: #1a1a1a;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.07);
-  font-weight: 500;
-  /* override animation-layer opacity:0 so links are always visible */
-  opacity: 1 !important;
-  transform: none !important;
-}
-.mobile-nav a:last-child { border-bottom: none; }
 
-/* Show hamburger, hide desktop nav on small screens */
+/* Backdrop overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s;
+}
+.mobile-nav-overlay.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Show burger / hide desktop nav on mobile */
 @media (max-width: 900px) {
-  .main-nav   { display: none !important; }
-  .hamburger  { display: flex !important; }
+  .main-nav  { display: none !important; }
+  .hamburger { display: flex !important; }
 }
 @media (min-width: 901px) {
   .mobile-nav { display: none !important; }
-  .hamburger  { display: none !important; }
+  .hamburger  { display: none; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   2. PRELOADER — fix oversized logo
+   2. PRELOADER
    ═══════════════════════════════════════════════════════════════════════════ */
 .preloader-icon img {
-  width: clamp(180px, 50vw, 500px) !important;
+  width: clamp(160px, 45vw, 480px) !important;
   height: auto !important;
 }
 
@@ -107,17 +108,17 @@ img, video, iframe      { max-width: 100%; }
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .top-bar {
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px 16px;
-    font-size: 0.75rem;
-    text-align: center;
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 8px 16px !important;
+    text-align: center !important;
+    font-size: 0.72rem !important;
   }
   .top-bar-left,
   .top-bar-right {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
   }
 }
 
@@ -126,147 +127,99 @@ img, video, iframe      { max-width: 100%; }
    4. HEADER
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .header-inner {
-    padding: 12px 20px;
-  }
-  .logo-img {
-    width: 100px !important;
-    height: auto !important;
-  }
-  /* Keep WhatsApp btn + cart + burger visible */
-  .header-actions {
-    gap: 8px;
-  }
-  .wa-btn span { display: none; } /* show icon only on mobile */
+  .header-inner { padding: 12px 20px !important; }
+  .logo-img     { width: 100px !important; height: auto !important; }
+  .wa-btn span  { display: none !important; }
+  .header-actions { gap: 8px !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   5. HERO SECTION  (index.html)
+   5. PAGE HERO (inner pages)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .page-hero   { padding: 64px 20px 48px !important; text-align: center !important; }
+  .page-hero h1{ font-size: clamp(2rem, 8vw, 3rem) !important; }
+  .page-hero p { font-size: 0.92rem !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. HERO SECTION — index.html
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .main-hero { padding: 60px 20px 48px; }
-
+  .main-hero { padding: 60px 20px 48px !important; }
   .hero-grid {
     grid-template-columns: 1fr !important;
-    gap: 40px !important;
-    text-align: center;
+    gap: 36px !important;
+    text-align: center !important;
   }
-
-  .hero-title  { font-size: clamp(2rem, 8vw, 3.2rem); }
-  .hero-desc   { font-size: 0.95rem; }
-
-  .hero-ctas {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-ctas a { width: 100%; max-width: 320px; justify-content: center; }
-
-  .hero-stats {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  /* Orb */
-  .hero-visual  { display: flex; justify-content: center; }
-  .hero-orb {
-    width: min(220px, 60vw) !important;
-    height: min(220px, 60vw) !important;
-  }
-  .hero-orb-inner { font-size: 90px !important; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   6. FEATURES BAR
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .features-bar { padding: 20px 16px; }
-  .features-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 16px !important;
-  }
-}
-@media (max-width: 500px) {
-  .features-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   7. SECTION CONTAINERS & PADDING
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  section { padding: 48px 0 !important; }
-  .container { padding-left: 18px !important; padding-right: 18px !important; }
-  .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   8. PRODUCTS GRID
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-  }
-}
-@media (max-width: 540px) {
-  .products-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   9. SERVICES GRID (home + booking)
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .services-home-grid,
-  div[style*="grid-template-columns:repeat(2,1fr)"] {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   10. ABOUT GRID (home dark section + about page)
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .about-grid {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-  /* Reset slide-in transforms so they don't cause overflow */
-  .about-grid > *:first-child,
-  .about-grid > *:last-child {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  /* Centre the orb on about page */
-  .about-orb-wrap { justify-content: center; }
-  .about-orb { font-size: 5rem; }
-
-  /* Highlights grid inside about section */
-  .highlights-grid {
-    grid-template-columns: 1fr 1fr !important;
+  .hero-title { font-size: clamp(2rem, 8vw, 3.2rem) !important; }
+  .hero-ctas  {
+    flex-direction: column !important;
+    align-items: center !important;
     gap: 12px !important;
   }
+  .hero-ctas a { width: 100% !important; max-width: 300px !important; justify-content: center !important; }
+  .hero-stats  { justify-content: center !important; flex-wrap: wrap !important; }
+  .hero-visual { display: flex !important; justify-content: center !important; }
+  .hero-orb    { width: min(200px,55vw) !important; height: min(200px,55vw) !important; }
+  .hero-orb-inner { font-size: 80px !important; }
+  .hero-logo   { max-width: 100% !important; height: auto !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. FEATURES BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .features-bar  { padding: 20px 16px !important; }
+  .features-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
 }
 @media (max-width: 480px) {
-  .highlights-grid {
+  .features-grid { grid-template-columns: 1fr !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. GENERAL SECTION SPACING
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  section { padding-top: 48px !important; padding-bottom: 48px !important; }
+  .container { padding-left: 18px !important; padding-right: 18px !important; }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. SERVICES GRID — home + booking
+   The div uses inline style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px"
+   We target .services-home-grid class which IS on the element alongside the inline style.
+   !important beats inline style only when specificity is equal — 
+   class selector + !important wins over inline style.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .services-home-grid {
     grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. SERVICE CARDS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .service-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
    11. TESTIMONIALS GRID
+   The div uses class="testimonials-grid stagger-children"
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .testimonials-grid {
@@ -277,23 +230,57 @@ img, video, iframe      { max-width: 100%; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   12. VALUES GRID (about page)
+   12. HIGHLIGHT CARDS GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .highlights-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+}
+@media (max-width: 480px) {
+  .highlights-grid { grid-template-columns: 1fr !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. ABOUT GRID — home dark section + about.html
+   Inline style: grid-template-columns:1fr 1fr;gap:80px
+   .about-grid class is on the element so !important overrides inline.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .about-grid > *:first-child,
+  .about-grid > *:last-child {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  .about-orb-wrap { justify-content: center !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   14. VALUES GRID — about.html
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .values-grid {
     grid-template-columns: 1fr 1fr !important;
     gap: 16px !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 @media (max-width: 540px) {
-  .values-grid {
-    grid-template-columns: 1fr !important;
-  }
+  .values-grid { grid-template-columns: 1fr !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   13. CONTACT GRID
+   15. CONTACT GRID
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .contact-grid {
@@ -304,19 +291,21 @@ img, video, iframe      { max-width: 100%; }
   .contact-grid > *:last-child {
     transform: none !important;
     opacity: 1 !important;
+    transition: none !important;
   }
 }
 
-/* FAQ grid on contact page */
+/* FAQ 2-col inline grid on contact page — no class, use attribute selector */
 @media (max-width: 768px) {
   div[style*="grid-template-columns:1fr 1fr"][style*="max-width:900px"] {
     grid-template-columns: 1fr !important;
+    gap: 14px !important;
   }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   14. BOOKING GRID
+   16. BOOKING GRID
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .booking-grid {
@@ -327,32 +316,51 @@ img, video, iframe      { max-width: 100%; }
   .booking-grid > *:last-child {
     transform: none !important;
     opacity: 1 !important;
+    transition: none !important;
   }
-  /* Process steps reset */
-  .step {
-    transform: none !important;
-    opacity: 1 !important;
-  }
+  .step { transform: none !important; opacity: 1 !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   15. FORM CARDS
+   17. PRODUCTS GRID — shop.html
    ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 600px) {
-  .form-card { padding: 24px 18px !important; }
-  .fc-row {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-  }
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
+}
+@media (max-width: 540px) {
+  .products-grid { grid-template-columns: 1fr !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   16. DELIVERY & PAYMENT CARDS (shop page)
+   18. SHOP FILTER BUTTONS
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  /* The inline-style 2-col delivery / payment grids */
+  .product-filters { flex-wrap: wrap !important; gap: 8px !important; }
+  .filter-btn { font-size: 0.8rem !important; padding: 8px 14px !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   19. SHOP INFO BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .shop-info-bar {
+    flex-direction: column !important;
+    gap: 10px !important;
+    text-align: center !important;
+    padding: 14px 18px !important;
+  }
+  .sib-right      { flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; }
+  .delivery-pills { gap: 6px !important; flex-wrap: wrap !important; justify-content: center !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   20. DELIVERY & PAYMENT CARDS — shop.html (inline 2-col, no class)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
   div[style*="grid-template-columns:1fr 1fr"][style*="max-width:720px"] {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
@@ -361,128 +369,62 @@ img, video, iframe      { max-width: 100%; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   17. SHOP FILTER BUTTONS
+   21. FORMS
    ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 640px) {
-  .product-filters {
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-  }
-  .filter-btn { font-size: 0.8rem; padding: 8px 14px !important; }
+@media (max-width: 600px) {
+  .form-card { padding: 24px 18px !important; border-radius: 12px !important; }
+  .fc-row    { grid-template-columns: 1fr !important; gap: 0 !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   18. SHOP INFO BAR
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .shop-info-bar {
-    flex-direction: column !important;
-    gap: 10px;
-    text-align: center;
-    padding: 14px 18px !important;
-  }
-  .sib-right {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-  .delivery-pills { gap: 6px; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   19. PAGE HERO (inner pages)
-   ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .page-hero { padding: 64px 20px 48px !important; }
-  .page-hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
-  .page-hero p  { font-size: 0.92rem; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   20. CTA BANNER
+   22. CTA BANNER
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .cta-banner { padding: 48px 20px !important; }
-  .cta-banner h2 { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .cta-banner h2 { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
   .cta-banner div[style*="display:flex"] {
     flex-direction: column !important;
-    align-items: center;
+    align-items: center !important;
   }
-  .cta-banner a { width: 100%; max-width: 300px; justify-content: center; }
+  .cta-banner a  { width: 100% !important; max-width: 300px !important; justify-content: center !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   21. FOOTER GRID
+   23. FOOTER GRID
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 32px !important;
-  }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
 }
 @media (max-width: 540px) {
-  .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
-  }
-  .footer-bottom {
-    flex-direction: column !important;
-    gap: 6px;
-    text-align: center;
-  }
+  .footer-grid   { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 6px !important; text-align: center !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   22. CART DRAWER
+   24. CART DRAWER & CHECKOUT MODAL
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
-  .cart-drawer { width: 100vw !important; }
+  .cart-drawer { width: 100vw !important; right: 0 !important; }
 }
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   23. CHECKOUT MODAL
-   ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .modal-box {
     width: 95vw !important;
-    max-height: 90dvh;
-    overflow-y: auto;
+    max-height: 90dvh !important;
+    overflow-y: auto !important;
     padding: 24px 18px !important;
+    margin: auto !important;
   }
-  .form-grid {
-    grid-template-columns: 1fr !important;
-  }
+  .form-grid { grid-template-columns: 1fr !important; }
   .form-group.full { grid-column: 1 !important; }
-  .modal-pay-methods {
-    flex-direction: column !important;
-    gap: 12px;
-  }
+  .modal-pay-methods { flex-direction: column !important; gap: 12px !important; }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   24. HERO LOGO / ORB IMAGE
-   ═══════════════════════════════════════════════════════════════════════════ */
-.hero-logo {
-  max-width: 100%;
-  height: auto;
-}
-@media (max-width: 900px) {
-  .hero-botanical { display: flex; justify-content: center; }
-  .hero-botanical-inner { display: flex; justify-content: center; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   25. GENERAL CARD TOUCH-FRIENDLINESS
-       Remove hover-transform on touch-only devices so cards don't get
-       stuck in a lifted state after tap.
+   25. TOUCH DEVICES — remove stuck hover-lifts after tap
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (hover: none) {
   .product-card:hover,
@@ -492,7 +434,14 @@ img, video, iframe      { max-width: 100%; }
   .tcard:hover,
   .value-card:hover,
   .contact-card:hover,
-  .faq-answer-card:hover {
+  .faq-item:hover,
+  .faq-answer-card:hover,
+  .feature-item:hover,
+  .btn-gold:hover,
+  .btn-primary:hover,
+  .btn-outline:hover,
+  .btn-outline-light:hover,
+  .btn-dark:hover {
     transform: none !important;
     box-shadow: var(--shadow, 0 2px 12px rgba(0,0,0,0.08)) !important;
   }
@@ -500,22 +449,31 @@ img, video, iframe      { max-width: 100%; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   26. SECTION-DARK (home about strip) — fix inline grid gap on mobile
+   26. SCROLL-REVEAL FALLBACK
+   If IntersectionObserver hasn't fired, elements stay opacity:0 on slow
+   mobile connections. Force them visible after a short delay.
    ═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .section-dark .about-grid {
-    /* inline style has gap:80px — override */
-    gap: 40px !important;
+@media (max-width: 768px) {
+  .reveal,
+  .stagger-children > *,
+  .section-header .section-tag,
+  .section-header .section-title,
+  .section-header .section-divider,
+  .section-header .section-desc {
+    animation: mobileShow 0s 1.2s forwards !important;
   }
-  .section-dark .about-grid > div:first-child {
-    order: 2; /* move highlights below text on mobile */
-  }
-  .section-dark .about-grid > div:last-child {
-    order: 1;
-  }
+  @keyframes mobileShow { to { opacity: 1 !important; transform: none !important; } }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   END OF responsive.css
+   27. OVERFLOW GUARD — stop any element blowing out horizontal scroll
    ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  body,
+  .main-hero,
+  .features-bar,
+  .cta-banner,
+  section,
+  footer { max-width: 100vw !important; overflow-x: hidden !important; }
+}
