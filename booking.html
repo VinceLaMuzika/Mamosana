@@ -731,5 +731,69 @@ function toggleFaq(el) {
 }
 </script>
 
-</body>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAMOSANA — MOBILE NAV FIX
+     Paste this block into EVERY HTML page, just before </body>.
+     It replaces the broken toggleMobileNav so the burger works reliably.
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Create overlay if it doesn't exist yet */
+  function getOverlay() {
+    return document.getElementById('mobileNavOverlay');
+  }
+
+  function openMobileNav() {
+    var nav     = document.getElementById('mobileNav');
+    var overlay = getOverlay();
+    if (!nav) return;
+    nav.classList.add('open');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+
+  function closeMobileNav() {
+    var nav     = document.getElementById('mobileNav');
+    var overlay = getOverlay();
+    if (!nav) return;
+    nav.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  /* Override the global toggleMobileNav used by onclick="" in HTML */
+  window.toggleMobileNav = function () {
+    var nav = document.getElementById('mobileNav');
+    if (!nav) return;
+    if (nav.classList.contains('open')) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
+  };
+
+  /* Also expose closeMobileNav globally (used by overlay onclick) */
+  window.closeMobileNav = closeMobileNav;
+
+  /* Close on Escape key */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  /* Close when a nav link is clicked (links already have onclick="toggleMobileNav()" 
+     but this catches any that don't) */
+  document.addEventListener('DOMContentLoaded', function () {
+    var nav = document.getElementById('mobileNav');
+    if (!nav) return;
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMobileNav);
+    });
+  });
+
+})();
+</script></body>
 </html>

@@ -1,0 +1,521 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MAMOSANA WELLNESS BOUTIQUE — responsive.css
+   Add  <link rel="stylesheet" href="responsive.css">  to EVERY page,
+   AFTER style.css  (last <link> before </head> is fine too).
+   This file fixes all mobile / tablet layout issues site-wide.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─── 0. BASE SAFETY ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+img, video, iframe      { max-width: 100%; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. MOBILE NAV  — burger menu show / hide
+   The animation engine only adds .open for link stagger;
+   the actual visibility toggle is handled here so it works
+   whether or not main.js fires correctly.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; right: 0;
+  width: min(320px, 85vw);
+  height: 100dvh;
+  background: #fff;
+  z-index: 9999;
+  padding: 28px 24px;
+  gap: 4px;
+  overflow-y: auto;
+  transform: translateX(100%);      /* hidden off-screen by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1),
+              opacity   0.45s ease;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+}
+.mobile-nav.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Overlay backdrop */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.mobile-nav-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-nav .mobile-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #333;
+  padding: 4px 8px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.mobile-nav a {
+  display: block;
+  padding: 13px 0;
+  font-size: 1.05rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  font-weight: 500;
+  /* override animation-layer opacity:0 so links are always visible */
+  opacity: 1 !important;
+  transform: none !important;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+
+/* Show hamburger, hide desktop nav on small screens */
+@media (max-width: 900px) {
+  .main-nav   { display: none !important; }
+  .hamburger  { display: flex !important; }
+}
+@media (min-width: 901px) {
+  .mobile-nav { display: none !important; }
+  .hamburger  { display: none !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. PRELOADER — fix oversized logo
+   ═══════════════════════════════════════════════════════════════════════════ */
+.preloader-icon img {
+  width: clamp(180px, 50vw, 500px) !important;
+  height: auto !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. TOP BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  .top-bar-left,
+  .top-bar-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. HEADER
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .header-inner {
+    padding: 12px 20px;
+  }
+  .logo-img {
+    width: 100px !important;
+    height: auto !important;
+  }
+  /* Keep WhatsApp btn + cart + burger visible */
+  .header-actions {
+    gap: 8px;
+  }
+  .wa-btn span { display: none; } /* show icon only on mobile */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. HERO SECTION  (index.html)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .main-hero { padding: 60px 20px 48px; }
+
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    text-align: center;
+  }
+
+  .hero-title  { font-size: clamp(2rem, 8vw, 3.2rem); }
+  .hero-desc   { font-size: 0.95rem; }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-ctas a { width: 100%; max-width: 320px; justify-content: center; }
+
+  .hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Orb */
+  .hero-visual  { display: flex; justify-content: center; }
+  .hero-orb {
+    width: min(220px, 60vw) !important;
+    height: min(220px, 60vw) !important;
+  }
+  .hero-orb-inner { font-size: 90px !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. FEATURES BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .features-bar { padding: 20px 16px; }
+  .features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+}
+@media (max-width: 500px) {
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. SECTION CONTAINERS & PADDING
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  section { padding: 48px 0 !important; }
+  .container { padding-left: 18px !important; padding-right: 18px !important; }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. PRODUCTS GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+@media (max-width: 540px) {
+  .products-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. SERVICES GRID (home + booking)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .services-home-grid,
+  div[style*="grid-template-columns:repeat(2,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. ABOUT GRID (home dark section + about page)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  /* Reset slide-in transforms so they don't cause overflow */
+  .about-grid > *:first-child,
+  .about-grid > *:last-child {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  /* Centre the orb on about page */
+  .about-orb-wrap { justify-content: center; }
+  .about-orb { font-size: 5rem; }
+
+  /* Highlights grid inside about section */
+  .highlights-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+}
+@media (max-width: 480px) {
+  .highlights-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. TESTIMONIALS GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. VALUES GRID (about page)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .values-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+}
+@media (max-width: 540px) {
+  .values-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. CONTACT GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .contact-grid > *:first-child,
+  .contact-grid > *:last-child {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* FAQ grid on contact page */
+@media (max-width: 768px) {
+  div[style*="grid-template-columns:1fr 1fr"][style*="max-width:900px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   14. BOOKING GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .booking-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .booking-grid > *:first-child,
+  .booking-grid > *:last-child {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  /* Process steps reset */
+  .step {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   15. FORM CARDS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .form-card { padding: 24px 18px !important; }
+  .fc-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   16. DELIVERY & PAYMENT CARDS (shop page)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* The inline-style 2-col delivery / payment grids */
+  div[style*="grid-template-columns:1fr 1fr"][style*="max-width:720px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   17. SHOP FILTER BUTTONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .product-filters {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .filter-btn { font-size: 0.8rem; padding: 8px 14px !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   18. SHOP INFO BAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .shop-info-bar {
+    flex-direction: column !important;
+    gap: 10px;
+    text-align: center;
+    padding: 14px 18px !important;
+  }
+  .sib-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .delivery-pills { gap: 6px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   19. PAGE HERO (inner pages)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .page-hero { padding: 64px 20px 48px !important; }
+  .page-hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  .page-hero p  { font-size: 0.92rem; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   20. CTA BANNER
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .cta-banner { padding: 48px 20px !important; }
+  .cta-banner h2 { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .cta-banner div[style*="display:flex"] {
+    flex-direction: column !important;
+    align-items: center;
+  }
+  .cta-banner a { width: 100%; max-width: 300px; justify-content: center; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   21. FOOTER GRID
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+}
+@media (max-width: 540px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   22. CART DRAWER
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .cart-drawer { width: 100vw !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   23. CHECKOUT MODAL
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .modal-box {
+    width: 95vw !important;
+    max-height: 90dvh;
+    overflow-y: auto;
+    padding: 24px 18px !important;
+  }
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .form-group.full { grid-column: 1 !important; }
+  .modal-pay-methods {
+    flex-direction: column !important;
+    gap: 12px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   24. HERO LOGO / ORB IMAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.hero-logo {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 900px) {
+  .hero-botanical { display: flex; justify-content: center; }
+  .hero-botanical-inner { display: flex; justify-content: center; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   25. GENERAL CARD TOUCH-FRIENDLINESS
+       Remove hover-transform on touch-only devices so cards don't get
+       stuck in a lifted state after tap.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (hover: none) {
+  .product-card:hover,
+  [class*="product-card"]:hover,
+  .service-card:hover,
+  .highlight-card:hover,
+  .tcard:hover,
+  .value-card:hover,
+  .contact-card:hover,
+  .faq-answer-card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow, 0 2px 12px rgba(0,0,0,0.08)) !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   26. SECTION-DARK (home about strip) — fix inline grid gap on mobile
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .section-dark .about-grid {
+    /* inline style has gap:80px — override */
+    gap: 40px !important;
+  }
+  .section-dark .about-grid > div:first-child {
+    order: 2; /* move highlights below text on mobile */
+  }
+  .section-dark .about-grid > div:last-child {
+    order: 1;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   END OF responsive.css
+   ═══════════════════════════════════════════════════════════════════════════ */
