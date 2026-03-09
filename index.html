@@ -913,12 +913,11 @@
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
-     MAMOSANA — MOBILE NAV FIX
-     Paste this entire block into EVERY HTML page, just before </body>.
-     Place it AFTER your existing <script src="main.js"></script> line.
+     MAMOSANA — MOBILE NAV FIX  v3
+     Paste this entire block into EVERY HTML page, just before </body>,
+     AFTER <script src="main.js"></script>.
      ═══════════════════════════════════════════════════════════════════════ -->
 
-<!-- Backdrop overlay (closes nav on outside tap) -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
 <script>
@@ -942,25 +941,52 @@
     document.body.style.overflow = '';
   }
 
-  /* ── Override the global used by all onclick="toggleMobileNav()" ── */
-  window.toggleMobileNav = function () {
+  /* ── Completely replace toggleMobileNav — stop any other version running ── */
+  window.toggleMobileNav = function (e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
     nav && nav.classList.contains('open') ? closeNav() : openNav();
   };
 
-  /* ── Overlay tap closes nav ─────────────────────────────────────── */
-  if (overlay) overlay.addEventListener('click', closeNav);
+  /* ── Wire the hamburger button directly, independent of onclick="" ────── */
+  document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── Escape key closes nav ──────────────────────────────────────── */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeNav();
+    /* Hamburger */
+    var burger = document.querySelector('.hamburger');
+    if (burger) {
+      /* Remove any existing onclick so it can't fire openCart accidentally */
+      burger.removeAttribute('onclick');
+      burger.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        nav && nav.classList.contains('open') ? closeNav() : openNav();
+      });
+    }
+
+    /* Mobile close button */
+    var closeBtn = document.querySelector('.mobile-close');
+    if (closeBtn) {
+      closeBtn.removeAttribute('onclick');
+      closeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeNav();
+      });
+    }
+
+    /* Nav links */
+    if (nav) {
+      nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeNav);
+      });
+    }
   });
 
-  /* ── Nav links close nav on tap ─────────────────────────────────── */
-  document.addEventListener('DOMContentLoaded', function () {
-    if (!nav) return;
-    nav.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', closeNav);
-    });
+  /* ── Overlay tap ────────────────────────────────────────────────────────── */
+  if (overlay) overlay.addEventListener('click', closeNav);
+
+  /* ── Escape key ─────────────────────────────────────────────────────────── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeNav();
   });
 
 })();

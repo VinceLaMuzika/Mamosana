@@ -127,10 +127,48 @@ img, video, iframe      { max-width: 100%; height: auto; }
    4. HEADER
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .header-inner { padding: 12px 20px !important; }
-  .logo-img     { width: 100px !important; height: auto !important; }
-  .wa-btn span  { display: none !important; }
+  .header-inner   { padding: 12px 20px !important; }
+  .logo-img       { width: 100px !important; height: auto !important; }
+  .wa-btn span    { display: none !important; }
   .header-actions { gap: 8px !important; }
+
+  /* Hamburger — large tap target, clearly separated from cart */
+  .hamburger {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    margin-left: 4px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 1.3rem !important;
+    color: inherit !important;
+    /* Ensure it sits above everything and gets its own tap zone */
+    position: relative !important;
+    z-index: 100 !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Cart button — also give proper tap target */
+  .cart-icon-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    position: relative !important;
+    z-index: 100 !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* WhatsApp button */
+  .wa-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
 }
 
 
