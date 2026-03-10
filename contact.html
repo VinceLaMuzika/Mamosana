@@ -668,12 +668,14 @@
     '.reveal, .stagger-children, .section-header, .contact-grid, .map-container, .map-btn-row'
   ).forEach(function (el) { observer.observe(el); });
 
-  /* ── MOBILE NAV ────────────────────────────────────── */
-  var origToggle = window.toggleMobileNav;
+ /* ── MOBILE NAV ────────────────────────────────────── */
+  // Override completely — do NOT chain origToggle (causes double-toggle bug)
   window.toggleMobileNav = function () {
     var nav = document.getElementById('mobileNav');
-    if (nav) nav.classList.toggle('open');
-    if (typeof origToggle === 'function') origToggle();
+    if (!nav) return;
+    var isOpen = nav.classList.contains('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
   };
 
   /* ── BUTTON RIPPLE ─────────────────────────────────── */

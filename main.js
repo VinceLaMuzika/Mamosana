@@ -264,8 +264,13 @@ function showToast(msg){
 }
 
 // ── MOBILE NAV ─────────────────────────────────
+// ── MOBILE NAV ─────────────────────────────────
 function toggleMobileNav(){
-  document.getElementById('mobileNav')?.classList.toggle('open');
+  const nav = document.getElementById('mobileNav');
+  if (!nav) return;
+  const isOpen = nav.classList.contains('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow = isOpen ? '' : 'hidden';
 }
 
 // ── HEADER SCROLL ──────────────────────────────

@@ -352,7 +352,7 @@
         loop>
       </dotlottie-wc>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px" class="services-home-grid stagger-children">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:20px" class="services-home-grid stagger-children">
       <div class="service-card">
         <div class="service-icon"><i class="fas fa-water"></i></div>
         <div>
@@ -684,12 +684,14 @@
     observer.observe(el);
   });
 
-  /* ── MOBILE NAV ────────────────────────────────────── */
-  var origToggle = window.toggleMobileNav;
+ /* ── MOBILE NAV ────────────────────────────────────── */
+  // Override completely — do NOT chain origToggle (causes double-toggle bug)
   window.toggleMobileNav = function () {
     var nav = document.getElementById('mobileNav');
-    if (nav) nav.classList.toggle('open');
-    if (typeof origToggle === 'function') origToggle();
+    if (!nav) return;
+    var isOpen = nav.classList.contains('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
   };
 
   /* ── BUTTON RIPPLE ─────────────────────────────────── */
